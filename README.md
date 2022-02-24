@@ -22,16 +22,16 @@ $ npm install
 
 ## Run Project
 
-$ yarn run dev
+$ yarn start
 $ npm start
 
 ## Build project
 
-$ yarn run build
+$ yarn build
 
 ## lint 스타일 검사
 
-$ yarn run lint
+$ yarn lint
 
 ## 개발에 필요한 문서파일
 
