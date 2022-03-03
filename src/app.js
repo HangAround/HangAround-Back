@@ -9,11 +9,11 @@ const dotenv = require('dotenv');
 
 const {errResponse} = require("../config/response");
 const authRouter = require('./routes/auth');
-const passportConfig = require('./passport');
+//const passportConfig = require('./passport');
 
 dotenv.config();
 const app = express();
-passportConfig(passport);
+//passportConfig(passport);
 
 app.set('port', process.env.PORT);
 app.use(logger('dev'));
