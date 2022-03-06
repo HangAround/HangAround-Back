@@ -1,0 +1,17 @@
+{
+   "compilerOptions": {
+      "lib": [
+         "es5",
+         "es6"
+      ],
+      "target": "es5",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "outDir": "./build",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "sourceMap": true,
+      "noImplicitAny": false, //TS에서 any type을 사용하기 위함
+      "esModuleInterop": true //es모듈을 어떻게 가져오는가
+   }
+}
