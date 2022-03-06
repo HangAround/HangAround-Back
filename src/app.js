@@ -1,4 +1,3 @@
-
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -15,13 +14,16 @@ dotenv.config();
 const app = express();
 //passportConfig(passport);
 
-app.set('port', process.env.PORT);
+
+app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
+console.log("왜 안돼");
 
 app.use('/auth', authRouter);
+
 
 //404 처리 미들웨어 (라우터에 등록되지 않은 주소로 요청이 들어올 때)
 app.use((req, res, next) => {
