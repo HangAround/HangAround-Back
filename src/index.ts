@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import {createConnection, Connection} from "typeorm";
-import {User} from "./entities/User";
 
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
@@ -11,8 +10,8 @@ const dotenv = require('dotenv');
 const nunjucks = require('nunjucks');
 const express = require('express');
 const routes = require('./routes');
+const indexRoutes = require('./routes/index');
 const {errResponse} = require("../config/response");
-const authRouter = require('./routes/auth');
 
 dotenv.config();
 
@@ -68,7 +67,9 @@ const app = express();
 // app.use(passport.initialize()); //요청 객체에 passport 설정을 심음
 // app.use(passport.session());   //req.session 객체에 passport 정보를 추가 저장
 
-app.use('/', routes);
+
+app.use('/', indexRoutes);
+
 
 //404 처리 미들웨어 (라우터에 등록되지 않은 주소로 요청이 들어올 때)
 app.use((req, res, next) => {
