@@ -4,9 +4,11 @@ import {User} from "./entities/User";
 
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
+const passportConfig = require('./passport');
 const logger = require('morgan');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const nunjucks = require('nunjucks');
 const express = require('express');
 const routes = require('./routes');
 const {errResponse} = require("../config/response");
@@ -45,15 +47,28 @@ createConnection()
 */ //https://133hyun.tistory.com/61에 의거한 코드
 
 const app = express();
-
-app.set('port', process.env.PORT || 3000);
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-app.use(cookieParser());
+// passportConfig(); // 패스포트 설정
+//
+ app.set('port', process.env.PORT || 3000);
+ app.use(logger('dev'));
+ app.use(express.json());
+ app.use(express.urlencoded({extended: false}));
+// app.use(cookieParser(process.env.COOKIE_SECRET));
+// app.use(
+//     session({
+//         resave: false,
+//         saveUninitialized: false,
+//         secret: process.env.COOKIE_SECRET,
+//         cookies: {
+//             httpOnly: true,
+//             secure: false
+//         },
+//     }),
+// );
+// app.use(passport.initialize()); //요청 객체에 passport 설정을 심음
+// app.use(passport.session());   //req.session 객체에 passport 정보를 추가 저장
 
 app.use('/', routes);
-app.use('/auth', authRouter);
 
 //404 처리 미들웨어 (라우터에 등록되지 않은 주소로 요청이 들어올 때)
 app.use((req, res, next) => {
@@ -63,6 +78,7 @@ app.use((req, res, next) => {
 
 // 에러 핸들러
 app.use((err, req, res, next) => {
+    console.error(err);
     res.locals.message = err.message;
     res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
     res.status(err.status || 500);
