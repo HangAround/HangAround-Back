@@ -10,6 +10,7 @@ const logger = require('morgan');
 const session = require('express-session');
 const nunjucks = require('nunjucks');
 const express = require('express');
+const path = require('path');
 const routes = require('./routes');
 const indexRoutes = require('./routes/index');
 const {errResponse} = require("../config/response");
@@ -42,6 +43,10 @@ app.use(session({
 }));
 app.use(passport.initialize()); //요청 객체에 passport 설정을 심음
 app.use(passport.session());   //req.session 객체에 passport 정보를 추가 저장
+
+const favicon = require('serve-favicon'); //favicon 설정
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 
 
 app.use('/', indexRoutes);
