@@ -7,6 +7,7 @@
    "database": "hangaround-1",
    "synchronize": false,
    "logging": true,
+   "charset": "utf8mb4",
    "entities": [
       "src/entities/*.ts"
    ],

@@ -12,11 +12,11 @@ import { User } from "./User";
 @Index("fk_Team_info_Team1", ["teamId"], {})
 @Entity("Team_info", { schema: "hangaround-1" })
 export class TeamInfo {
-  @Column("int", { primary: true, name: "user_id" })
-  userId: number;
+  @Column("bigint", { primary: true, name: "user_id" })
+  userId: bigint;
 
-  @Column("int", { name: "team_id" })
-  teamId: number;
+  @Column("bigint", { primary: true, name: "team_id" })
+  teamId: bigint;
 
   @Column("varchar", { name: "role", length: 45 })
   role: string;
