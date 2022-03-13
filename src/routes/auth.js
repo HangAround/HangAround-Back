@@ -1,5 +1,5 @@
 const express = require('express');
-//const passport = require('passport');
+const passport = require('passport');
 const {User} = require("../entities/User");
 const { getRepository } = require("typeorm");
 
@@ -11,6 +11,18 @@ router.get('/ex',async (req, res) => {
     res.send(user);
 });
 
-//router.get('/kakao', passport.authenticate('kakao'));
+router.get('/kakao', passport.authenticate('kakao'));
+
+router.get('kakao/callback',passport.authenticate('kakao',{
+    failureRedirect: '/test',
+}), (req,res) => {
+    res.redirect('/test');
+})
+
+router.get('/test',(req,res)=>{
+    res.send("test");
+});
+
+
 
 module.exports = router;
