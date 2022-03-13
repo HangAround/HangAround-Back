@@ -5,7 +5,7 @@
    "username": "admin",
    "password": "goddjfkdnsem22",
    "database": "hangaround-1",
-   "synchronize": true,
+   "synchronize": false,
    "logging": true,
    "charset": "utf8mb4",
    "entities": [
