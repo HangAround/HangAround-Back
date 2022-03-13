@@ -1,15 +1,14 @@
 import "reflect-metadata";
-import {createConnection} from "typeorm";
+import {createConnection, Connection} from "typeorm";
 import {User} from "./entities/User";
 
 const dotenv = require('dotenv');
 const express = require('express');
 const routes = require('./routes');
-
-dotenv.config();
 const app = express();
 
-app.use(express.json);
+dotenv.config();
+app.use(express.json());
 app.use('/', routes);
 
 createConnection().then(async connection => {
@@ -52,3 +51,4 @@ createConnection()
   )
   .catch((err: Error) => console.log("Entity connection error : ", err));
 */ //https://133hyun.tistory.com/61에 의거한 코드
+//module.exports = app;

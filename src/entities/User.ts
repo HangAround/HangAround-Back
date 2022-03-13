@@ -1,10 +1,13 @@
 import "reflect-metadata";
 import {Column, Entity, PrimaryGeneratedColumn, Timestamp} from "typeorm";
 
-@Entity("user", { schema: "hangaround-1" })
+@Entity("User", { schema: "hangaround-1" })
 export class User {
   @PrimaryGeneratedColumn({ type: "int", name: "user_id" })
   userId: number;
+
+  @Column("int",{name: "sns_id"})
+  snsId: number;
 
   @Column("varchar", { name: "user_name", length: 255 })
   userName: string;
