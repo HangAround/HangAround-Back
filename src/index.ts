@@ -15,35 +15,12 @@ const {errResponse} = require("../config/response");
 
 dotenv.config();
 
+
 createConnection().then( async (connection: Connection) => {
 
     console.log("DB CONNECTION!");
-    /*const user = new User();
-    user.firstName = "Timber";
-    user.lastName = "Saw";
-    user.age = 25;
-    await connection.manager.save(user);
-    console.log("Saved a new user with id: " + user.id);
-
-    console.log("Loading users from the database...");
-    const users = await connection.manager.find(User);
-    console.log("Loaded users: ", users);
-    */
-
+   
 }).catch((err: Error) => console.log("Entity connection error : ", err));
-//catch(error => console.log(error));
-
-
-/*
-import { createConnection, Connection } from "typeorm";
-
-//connect to entity
-createConnection()
-  .then(async (connection: Connection) =>
-    console.log("Entity connected : ", connection.isConnected)
-  )
-  .catch((err: Error) => console.log("Entity connection error : ", err));
-*/ //https://133hyun.tistory.com/61에 의거한 코드
 
 const app = express();
 // passportConfig(); // 패스포트 설정
