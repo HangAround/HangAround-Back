@@ -22,19 +22,10 @@ createConnection().then(async (connection: Connection) => {
 }).catch((err: Error) => console.log("Entity connection error : ", err));
 
 
-
 const app = express();
 passportConfig(); // 패스포트 설정
-//passport.serializeUser();
-//passport.deserializeUser();
 
 app.set('port', process.env.PORT || 3000);
-
-app.set('view engine', 'html');
-nunjucks.configure('views', {
-    express: app,
-    watch: true,
-});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -65,6 +56,7 @@ app.use((req, res, next) => {
 // 에러 핸들러
 app.use((err, req, res, next) => {
     console.error(err);
+    //console.log(err.stack);
     res.locals.message = err.message;
     res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
     res.status(err.status || 500);
