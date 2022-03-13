@@ -4,17 +4,18 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
-  OneToMany,
+  OneToMany, PrimaryGeneratedColumn,
 } from "typeorm";
 import { Liar } from "./Liar";
 import { Game } from "./Game";
 import { User } from "./User";
+import {Cis} from "./Cis";
 
 @Index("fk_Room_Game1", ["gameId"], {})
 @Entity("Room", { schema: "hangaround-1" })
 export class Room {
-  @Column("int", { primary: true, name: "room_id" })
-  roomId: number;
+  @PrimaryGeneratedColumn('increment',{ type: "bigint", name: "room_id" })
+  roomId: bigint;
 
   @Column("varchar", { name: "room_name", length: 45 })
   roomName: string;
@@ -22,11 +23,11 @@ export class Room {
   @Column("int", { name: "max_player" })
   maxPlayer: number;
 
-  @Column("varchar", { name: "link", length: 45 })
-  link: string;
+  @Column("varchar", { name: "room_code", length: 45 })
+  roomCode: string;
 
-  @Column("int", { name: "owner_id" })
-  ownerId: number;
+  @Column("bigint", { name: "owner_id" })
+  ownerId: bigint;
 
   @Column("int", { name: "player_cnt", nullable: true })
   playerCnt: number | null;
@@ -49,4 +50,7 @@ export class Room {
 
   @OneToMany(() => User, (user) => user)
   users: User[];
+
+  @OneToMany(() => Cis, (cis) => cis.roomId)
+  cis: Cis[];
 }

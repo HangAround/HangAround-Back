@@ -1,4 +1,4 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import {Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import { LiarData } from "./LiarData";
 import { Room } from "./Room";
 
@@ -6,11 +6,11 @@ import { Room } from "./Room";
 @Index("fk_Liar_Room1", ["roomId"], {})
 @Entity("Liar", { schema: "hangaround-1" })
 export class Liar {
-  @Column("int", { primary: true, name: "liar_id" })
-  liarId: number;
+  @PrimaryGeneratedColumn('increment',{ type: "int", name: "liar_id" })
+  liarId: bigint;
 
-  @Column("int", { name: "room_id" })
-  roomId: number;
+  @Column("bigint", { name: "room_id" })
+  roomId: bigint;
 
   @Column("int", { name: "liar_answer_id" })
   liarAnswerId: number;
