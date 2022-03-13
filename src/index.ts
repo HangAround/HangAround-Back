@@ -1,13 +1,12 @@
 import "reflect-metadata";
-import {createConnection} from "typeorm";
+import {createConnection, Connection} from "typeorm";
 
 const dotenv = require('dotenv');
 const express = require('express');
 const routes = require('./routes');
-
-dotenv.config();
 const app = express();
 
+dotenv.config();
 app.use(express.json());
 app.use('/', routes);
 
@@ -21,5 +20,3 @@ createConnection().then(async connection => {
     });
 
 }).catch((err: Error) => console.log("Entity connection error : ", err));
-
-//module.exports = app;
