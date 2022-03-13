@@ -13,7 +13,7 @@ router.get('/ex',async (req, res) => {
 
 router.get('/kakao', passport.authenticate('kakao'));
 
-router.get('kakao/callback',passport.authenticate('kakao',{
+router.get('/kakao/callback',passport.authenticate('kakao',{
     failureRedirect: '/test',
 }), (req,res) => {
     res.redirect('/test');

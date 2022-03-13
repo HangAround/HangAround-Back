@@ -1,11 +1,12 @@
-const KakaoStrategy = require('passport-kakao').Strategy;
+const passport = require('passport');
+const kakaoStrategy = require('passport-kakao').Strategy;
 
 const {User} = require('../entities/User');
 const { getRepository } = require("typeorm");
 
-module.exports = (passport) => {
-    passport.use(new KakaoStrategy({
-        clientId: process.env.KAKAO_ID,
+module.exports = () => {
+    passport.use(new kakaoStrategy({
+        clientID: process.env.KAKAO_ID ,
         callbackURL: '/auth/kakao/callback',
     }, async (accessToken, refreshToken, profile, done) => {
         try {
@@ -27,5 +28,5 @@ module.exports = (passport) => {
             console.error(error);
             done(error);
         }
-    }))
-}
+    }));
+};
