@@ -17,14 +17,13 @@ router.post('/', async (req,res,next)=> {
         maxPlayer: req.body.maxPlayer,
         roomCode: room_code,
         ownerId: req.body.ownerId,
-        playerCnt: 0, //나중에 이거랑 밑에거 DB에서 바꾸기
         gameId: 1 //일단 new_room에서는 무조건 default_game으로 주기
       })
       .execute()
       res.send(baseResponseStatus.SUCCESS);
     } catch (error) {
         console.error(error);
-        next(baseResponseStatus.DB_INSERT_ERROR);
+        next(baseResponseStatus.NEW_ROOM_ERROR);
       }
 });
 
