@@ -16,7 +16,7 @@ module.exports = {
     // Response error
     SIGNIN_WITHDRAWAL_ACCOUNT : { "isSuccess": false, "code": 3006, "message": "탈퇴 된 계정입니다. 고객센터에 문의해주세요." },
     JOIN_ROOM_ERROR : {"isSuccess": false, "code": 3008, "message": "방 입장에 실패했습니다."},
-    NEW_ROOM_ERROR : {"isSuccess": false, "code": 3007, "message": "방 생성에 실패했습니다."},
+    NEW_ROOM_NAME_ERROR : {"isSuccess": false, "code": 3007, "message": "방 이름을 입력해주세요."},
 
 
     //Connection, Transaction 등의 서버 오류
