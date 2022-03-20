@@ -1,8 +1,6 @@
 import "reflect-metadata";
 import {createConnection, Connection} from "typeorm";
 
-const dotenv = require('dotenv');
-dotenv.config();
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const passportConfig = require('./passport');
@@ -14,6 +12,8 @@ const path = require('path');
 const routes = require('./routes');
 const indexRoutes = require('./routes/index');
 const {errResponse} = require("../config/response");
+const dotenv = require('dotenv');
+dotenv.config();
 
 
 createConnection().then(async (connection: Connection) => {
@@ -48,25 +48,21 @@ const favicon = require('serve-favicon'); //favicon 설정
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 
-
-
 app.use('/', indexRoutes);
-
 
 //404 처리 미들웨어 (라우터에 등록되지 않은 주소로 요청이 들어올 때)
 app.use((req, res, next) => {
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
-    next(error);
+    res.status(404);
+    res.send(errResponse({"isSuccess": false, "code": 404, "message": error.message}));
 });
 
 // 에러 핸들러
 app.use((err, req, res, next) => {
-    console.error(err);
-    //console.log(err.stack);
-    res.locals.message = err.message;
+    res.locals.message = process.env.NODE_ENV !== 'production' ? err.message : "재접속 해주세요.";
     res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
-    res.status(err.status || 500);
-    res.send(errResponse({"isSuccess": false, "code": (err.status || 500), "message": err.message}));
+    res.status(500);
+    res.send(errResponse({"isSuccess": false, "code": err.code, "message": res.locals.message}));
 });
 
 module.exports = app;
