@@ -2,34 +2,40 @@ const express = require('express');
 const router = express.Router();
 const {getConnection} = require("typeorm");
 const {Room} = require("../entities/Room");
-const baseResponseStatus = require("../../config/baseResponseStatus");
+const baseResponse = require("../../config/baseResponseStatus");
+const {response} = require("../../config/response");
+const {errResponse} = require("../../config/response");
 
-var room_code = Math.random().toString(36).slice(2);
+let room_code = Math.random().toString(36).slice(2);
+
+router.get('/', function (req, res, next){
+  let json_room_code = { 'roomCode': room_code };
+  res.send(response(baseResponse.SUCCESS, json_room_code));
+})
 
 router.post('/', async (req,res,next)=> {
+  let {roomName, maxPlayer, ownerId} = req.body;
+
+  if(!roomName)
+    return res.send(response(baseResponse.ROOM_NAME_EMPTY));
+
   try {
     await getConnection()
       .createQueryBuilder()
       .insert()
       .into(Room)
       .values({ 
-        roomName: req.body.roomName,
-        maxPlayer: req.body.maxPlayer,
+        roomName: roomName,
+        maxPlayer: maxPlayer,
         roomCode: room_code,
-        ownerId: req.body.ownerId,
+        ownerId: ownerId,
         gameId: 1 //일단 new_room에서는 무조건 default_game으로 주기
       })
       .execute()
-      res.send(baseResponseStatus.SUCCESS);
+      res.send(response(baseResponse.SUCCESS));
     } catch (error) {
-        console.error(error);
-        next(baseResponseStatus.NEW_ROOM_ERROR);
+      res.send(baseResponse.NEW_ROOM_ERROR);
       }
-});
-
-router.use(function (req, res, next){
-  var json_room_code = { 'roomCode': room_code };
-  res.send(json_room_code);
 });
 
 module.exports = router;
