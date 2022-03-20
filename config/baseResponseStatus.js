@@ -11,12 +11,13 @@ module.exports = {
     TOKEN_VERIFICATION_SUCCESS : { "isSuccess": true, "code": 1001, "message":"JWT 토큰 검증 성공" },
 
     // Request error
-    SIGNIN_EMAIL_EMPTY : { "isSuccess": false, "code": 2008, "message":"이메일을 입력해주세요" },
+    SIGNIN_EMAIL_EMPTY : { "isSuccess": false, "code": 2001, "message":"이메일을 입력해주세요" },
+    ROOM_NAME_EMPTY : {"isSuccess": false, "code": 2002, "message": "방 이름을 입력해주세요."},
 
     // Response error
-    SIGNIN_WITHDRAWAL_ACCOUNT : { "isSuccess": false, "code": 3006, "message": "탈퇴 된 계정입니다. 고객센터에 문의해주세요." },
-    JOIN_ROOM_ERROR : {"isSuccess": false, "code": 3008, "message": "방 입장에 실패했습니다."},
-    NEW_ROOM_NAME_ERROR : {"isSuccess": false, "code": 3007, "message": "방 이름을 입력해주세요."},
+    SIGNIN_WITHDRAWAL_ACCOUNT : { "isSuccess": false, "code": 3001, "message": "탈퇴 된 계정입니다. 고객센터에 문의해주세요." },
+    NEW_ROOM_ERROR : {"isSuccess": false, "code": 3002, "message": "방 생성에 실패했습니다."},
+    JOIN_ROOM_ERROR : {"isSuccess": false, "code": 3003, "message": "방 입장에 실패했습니다."}, 
 
 
     //Connection, Transaction 등의 서버 오류
