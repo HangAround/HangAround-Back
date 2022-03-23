@@ -26,6 +26,7 @@ router.get('/:roomId/userInfo', async (req, res) => {
     })
     if(users.length == 0){
         console.log("해당 방에 참여한 유저가 없습니다. 해당 방을 삭제합니다.");
+        await getRepository(Room).delete(req.params.roomId);
         res.send(errResponse(USER_ROOMID_NOT_EXIST));
     }else{
         res.send(response(SUCCESS,users));
