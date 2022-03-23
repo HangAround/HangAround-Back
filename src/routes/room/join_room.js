@@ -18,20 +18,22 @@ router.get('/ex', async (req, res) => {
   res.send(user);
 });
 
-router.put('/', async (req,res,next)=> {
+router.put('/', async (req,res)=> {
   try {
-    const {userId, userName, roomCode} = req.body;
+    let {userId, userName, roomCode} = req.body;
 
-    const userRepository = getRepository(Room);
-    const room = await userRepository.findOne({roomCode: roomCode});
+    let userRepository = getRepository(Room);
+    let room = await userRepository.findOne({roomCode});
     if(room == undefined) {
-      res.send(response(baseResponse.ROOM_CODE_ERROR));
-    }
-    
-    if(!userName) {
-      res.send(response(baseResponse.USER_NAME_EMPTY));
-    }
-    await getConnection()
+      res.send(errResponse(baseResponse.ROOM_CODE_ERROR));
+    } else if(room.playerCnt == room.maxPlayer) {
+      res.send(errResponse(baseResponse.ROOM_CAPACITY_EXCESS_ERROR));
+    } else if(room.gameId != 1) {
+      res.send(errResponse(baseResponse.ROOM_STATUS_ERROR));
+    } else if(!userName) {
+      res.send(errResponse(baseResponse.USER_NAME_EMPTY));
+    } else {
+      await getConnection()
       .createQueryBuilder()
       .update(User)
       .set({
@@ -43,12 +45,12 @@ router.put('/', async (req,res,next)=> {
       })
       .execute();
 
-    room.playerCnt += 1;
-    userRepository.save(room);
-
-    res.send(response(baseResponse.SUCCESS));
+      room.playerCnt += 1;
+      userRepository.save(room);
+      res.send(response(baseResponse.SUCCESS));
+    }
   } catch (error) {
-    res.send(response(baseResponse.JOIN_ROOM_ERROR));
+    res.send(errResponse(baseResponse.JOIN_ROOM_ERROR));
   }
 });
 
