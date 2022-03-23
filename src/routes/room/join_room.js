@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const {User} = require("../entities/User");
-const {Room} = require("../entities/Room");
+const {User} = require("../../entities/User");
+const {Room} = require("../../entities/Room");
 
 const {getRepository, getConnection} = require("typeorm");
-const baseResponse = require("../../config/baseResponseStatus");
-const {response, errResponse} = require("../../config/response");
+const baseResponse = require("../../../config/baseResponseStatus");
+const {response, errResponse} = require("../../../config/response");
 
 router.get('/join_room', function(req, res, next) {
   res.send('respond with a resource');
