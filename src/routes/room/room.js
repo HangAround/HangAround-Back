@@ -1,11 +1,36 @@
 const express = require('express');
+const router = express.Router();
+
 const {Room} = require("../../entities/Room");
+const {User} = require("../../entities/User");
+
 const {getRepository} = require("typeorm");
 const {errResponse, response} = require("../../../config/response");
 const {ROOM_ROOMID_NOT_EXIST, SUCCESS, USER_ROOMID_NOT_EXIST} = require("../../../config/baseResponseStatus");
-const {User} = require("../../entities/User");
-const router = express.Router();
 
+const baseResponse = require("../../../config/baseResponseStatus");
+
+router.patch('/:roomId/roomInfo', async (req, res)=> {
+    try {
+        let roomId = req.params.roomId;
+        let {roomName, maxPlayer} = req.body;
+
+        let roomRepository = getRepository(Room);
+        let room = await roomRepository.findOne({roomId});
+
+        if(maxPlayer < room.playerCnt || maxPlayer < 4 || maxPlayer > 6) {
+            res.send(errResponse(baseResponse.ROOM_CAPACITY_ERROR));
+        } else {
+            room.maxPlayer = maxPlayer;
+            room.roomName = roomName;
+            await roomRepository.save(room);
+
+            res.send(response(baseResponse.SUCCESS));
+        }
+    } catch (error) {
+        res.send(errResponse(baseResponse.ROOMINFO_MODIFY_ERROR));
+    }
+})
 
 //room 정보 조회
 router.get('/:roomId', async (req, res) => {

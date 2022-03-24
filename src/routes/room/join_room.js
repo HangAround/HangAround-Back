@@ -22,8 +22,8 @@ router.put('/', async (req,res)=> {
   try {
     let {userId, userName, roomCode} = req.body;
 
-    let userRepository = getRepository(Room);
-    let room = await userRepository.findOne({roomCode});
+    let roomRepository = getRepository(Room);
+    let room = await roomRepository.findOne({roomCode});
     if(room == undefined) {
       res.send(errResponse(baseResponse.ROOM_CODE_ERROR));
     } else if(room.playerCnt == room.maxPlayer) {
@@ -46,8 +46,10 @@ router.put('/', async (req,res)=> {
       .execute();
 
       room.playerCnt += 1;
-      userRepository.save(room);
-      res.send(response(baseResponse.SUCCESS));
+      await roomRepository.save(room);
+      let json_room_id = { 'roomId': room.roomId };
+
+      res.send(response(baseResponse.SUCCESS, json_room_id));
     }
   } catch (error) {
     res.send(errResponse(baseResponse.JOIN_ROOM_ERROR));
