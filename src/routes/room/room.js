@@ -33,7 +33,7 @@ router.patch('/:roomId/roomInfo', async (req, res)=> {
 })
 
 //room 정보 조회
-router.get('/:roomId', async (req, res) => {
+router.get('/:roomId/roomInfo', async (req, res) => {
     const roomRepository = getRepository(Room);
     const room = await roomRepository.findOne(req.params.roomId);
     if (!room) {
