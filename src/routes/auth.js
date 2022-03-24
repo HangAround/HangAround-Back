@@ -25,7 +25,7 @@ router.get('/without-login', async (req, res, next) => {
         res.send(response(baseResponse.SUCCESS));
     } catch (error) {
         console.error(error);
-        next(baseResponse.DB_ERROR)
+        res.send(baseResponse.DB_ERROR)
     }
 })
 
