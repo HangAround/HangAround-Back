@@ -11,11 +11,11 @@ router.use('/auth', auth);
 router.use('/room', roomRoutes);
 
 
-router.get('/main', async (req, res) => {
+router.get('/main',  (req, res) => {
     res.send("메인 화면");
 });
 
-router.get('/login', async (req, res) => {
+router.get('/login', (req, res) => {
     res.send("로그인 화면");
 });
 
