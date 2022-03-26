@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const {errResponse} = require("../../config/response");
-const baseResponse = require("../../../config/baseResponseStatus");
+const baseResponse = require("../../config/baseResponseStatus");
 
 exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
