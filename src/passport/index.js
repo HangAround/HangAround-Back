@@ -1,6 +1,7 @@
 const passport = require('passport');
 const kakao = require('./kakaoStrategy');
 const local = require('./localStrategy');
+const custom = require('./customStrategy');
 const {User} = require('../entities/User');
 const {getRepository} = require("typeorm");
 
@@ -23,4 +24,5 @@ module.exports = () => {
 
     local();
     kakao();
+    custom();
 };
