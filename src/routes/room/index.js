@@ -7,6 +7,6 @@ const room = require('./room.js');
 
 router.use('/new_room', new_room);
 router.use('/join_room', join_room);
-router.use('/room', room);
+router.use('', room);
 
 module.exports = router;

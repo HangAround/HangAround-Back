@@ -15,7 +15,7 @@ export class User {
 
     @Column("varchar", {name: "channel", length: 15})
     channel: string;
-
+    
     @ManyToOne(() => Room, (room) => room.users, {
         onDelete: "NO ACTION",
         onUpdate: "NO ACTION",

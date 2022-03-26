@@ -3,18 +3,17 @@ const router = express.Router();
 const { getRepository, getConnection } = require("typeorm");
 const { Room } = require("../../entities/Room");
 const baseResponse = require("../../../config/baseResponseStatus");
-const { response } = require("../../../config/response");
-const { errResponse } = require("../../../config/response");
+const { response, errResponse } = require("../../../config/response");
 
 let roomCode = Math.random().toString(36).slice(2);
 
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
   let json_room_code = { 'roomCode': roomCode };
   res.send(response(baseResponse.SUCCESS, json_room_code));
 })
 
 router.post('/', async (req, res) => {
-  const { roomName, maxPlayer, ownerId } = req.body;
+  const { roomName, maxPlayer, userId } = req.body;
 
   if (!roomName)
     return res.send(errResponse(baseResponse.ROOM_NAME_EMPTY));
@@ -33,7 +32,7 @@ router.post('/', async (req, res) => {
               roomName: roomName,
               maxPlayer: maxPlayer,
               roomCode: roomCode,
-              ownerId: ownerId,
+              ownerId: userId,
               playerCnt: 0,
               gameId: 1
             })
