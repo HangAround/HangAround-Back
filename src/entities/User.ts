@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Timestamp} from "typeorm";
+import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {Room} from "./Room";
 
 @Entity("User", {schema: "hangaround-1"})

@@ -1,16 +1,14 @@
 const express = require('express');
 const passport = require('passport');
-const {User} = require("../entities/User");
-const {getRepository} = require("typeorm");
 const baseResponse = require("../../config/baseResponseStatus");
 const {response, errResponse} = require("../../config/response");
 const jwt = require("jsonwebtoken");
 const {httpOnly} = require("express-session/session/cookie");
-const {USER_LOCALPASSPORT_ERROR, SUCCESS} = require("../../config/baseResponseStatus");
 const {isNotLoggedIn} = require("./middleware");
 
 const router = express.Router();
 
+//카카오 로그인
 router.get('/kakao', isNotLoggedIn, passport.authenticate('kakao'));
 
 router.get('/kakao/callback', passport.authenticate('kakao', {
@@ -23,20 +21,21 @@ router.get('/kakao/callback', passport.authenticate('kakao', {
         issuer: 'hangaround',
     });
     //res.cookie("loginToken", token, {httpOnly: true});
-    res.send(response(SUCCESS, {"userId": req.user.userId, "JWT": token}));
+    res.send(response(baseResponse.SUCCESS, {"userId": req.user.userId, "JWT": token}));
 });
 
+//로그인 없이 입장
 router.get('/without-login', isNotLoggedIn, async (req, res, next) => {
     passport.authenticate('local', async (authError, user) => {
         if (authError) {
             console.error(authError);
-            return errResponse(USER_LOCALPASSPORT_ERROR);
+            return errResponse(baseResponse.USER_LOCALPASSPORT_ERROR);
         }
 
         return req.login(user, (loginError) => {
             if (loginError) {
                 console.error(loginError);
-                return errResponse(USER_LOCALPASSPORT_ERROR);
+                return errResponse(baseResponse.USER_LOCALPASSPORT_ERROR);
             }
 
             const token = jwt.sign({
@@ -46,7 +45,7 @@ router.get('/without-login', isNotLoggedIn, async (req, res, next) => {
                 issuer: 'hangaround',
             });
             //res.cookie("loginToken", token, {httpOnly: true});
-            res.send(response(SUCCESS, {"userId": user.userId, "JWT": token}));
+            res.send(response(baseResponse.SUCCESS, {"userId": user.userId, "JWT": token}));
         });
     })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
 });
@@ -56,14 +55,13 @@ router.get('/:userId', async (req, res, next) => {
     passport.authenticate('custom', async (authError, user) => {
         if (authError) {
             console.error(authError);
-            return errResponse(USER_LOCALPASSPORT_ERROR);
+            return errResponse(baseResponse.USER_LOCALPASSPORT_ERROR);
         }
         return req.login(user, (loginError) => {
             if (loginError) {
                 console.error(loginError);
-                return errResponse(USER_LOCALPASSPORT_ERROR);
+                return errResponse(baseResponse.USER_LOCALPASSPORT_ERROR);
             }
-            const roomId = req.params.roomId;
             const token = jwt.sign({
                 id: req.user.userId,
             }, process.env.JWT_SECRET, {
@@ -71,7 +69,7 @@ router.get('/:userId', async (req, res, next) => {
                 issuer: 'hangaround',
             });
 
-            res.send(response(SUCCESS, {"userId": user.userId, "JWT": token}))
+            res.send(response(baseResponse.SUCCESS, {"userId": user.userId, "JWT": token}))
         });
     })(req, res, next);
 })

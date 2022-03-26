@@ -1,9 +1,5 @@
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const CustomStrategy = require('passport-custom').Strategy
-const bcrypt = require('bcrypt');
-
-
 const {getRepository} = require("typeorm");
 const {User} = require("../entities/User");
 
