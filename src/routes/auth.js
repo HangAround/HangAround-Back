@@ -9,11 +9,9 @@ const {isNotLoggedIn} = require("./middleware");
 const router = express.Router();
 
 //카카오 로그인
-router.get('/kakao', isNotLoggedIn, passport.authenticate('kakao'));
+router.get('/kakao', passport.authenticate('kakao'));
 
-router.get('/kakao/callback', passport.authenticate('kakao', {
-    failureRedirect: '/login',
-}), (req, res) => {
+router.get('/kakao/callback', passport.authenticate('kakao'), ( req, res) => {
     const token = jwt.sign({
         id: req.user.userId,
     }, process.env.JWT_SECRET, {
@@ -22,10 +20,11 @@ router.get('/kakao/callback', passport.authenticate('kakao', {
     });
     //res.cookie("loginToken", token, {httpOnly: true});
     res.send(response(baseResponse.SUCCESS, {"userId": req.user.userId, "JWT": token}));
-});
+}
+);
 
 //로그인 없이 입장
-router.get('/without-login', isNotLoggedIn, async (req, res, next) => {
+router.get('/without-login', async (req, res, next) => {
     passport.authenticate('local', async (authError, user) => {
         if (authError) {
             console.error(authError);
