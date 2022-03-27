@@ -3,16 +3,18 @@ const router = express.Router();
 const { getRepository, getConnection } = require("typeorm");
 const { Room } = require("../../entities/Room");
 const baseResponse = require("../../../config/baseResponseStatus");
+const {isLoggedIn, verifyToken} = require("../middleware");
 const { response, errResponse } = require("../../../config/response");
 
 let roomCode = Math.random().toString(36).slice(2);
+
 
 router.get('/', (req, res) => {
   let json_room_code = { 'roomCode': roomCode };
   res.send(response(baseResponse.SUCCESS, json_room_code));
 })
 
-router.post('/', async (req, res) => {
+router.post('/', isLoggedIn, verifyToken, async (req, res) => {
   const { roomName, maxPlayer, userId } = req.body;
 
   if (!roomName)
@@ -47,7 +49,6 @@ router.post('/', async (req, res) => {
         roomCode = Math.random().toString(36).slice(2);
       }
     }
-  }
 });
 
 module.exports = router;

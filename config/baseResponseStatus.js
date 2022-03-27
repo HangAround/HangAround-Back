@@ -10,7 +10,8 @@ module.exports = {
     // Common
     TOKEN_EMPTY: {"isSuccess": false, "code": 2000, "message": "JWT 토큰을 입력해주세요."},
     TOKEN_VERIFICATION_FAILURE: {"isSuccess": false, "code": 3000, "message": "JWT 토큰 검증 실패"},
-    TOKEN_VERIFICATION_SUCCESS: {"isSuccess": true, "code": 1001, "message": "JWT 토큰 검증 성공"},
+    TOKEN_EXPIRED_ERROR: {"isSuccess": false, "code": 3030, "message": "JWT 토큰이 만료되었습니다."},
+    AUTH_LOGIN_ERROR: {"isSuccess": false, "code": 3031, "message": "로그인 후 접근 가능한 페이지 입니다."},
 
     // Request error
     SIGNIN_EMAIL_EMPTY: {"isSuccess": false, "code": 2001, "message": "이메일을 입력해주세요."},
@@ -28,6 +29,7 @@ module.exports = {
     NEW_ROOM_ERROR: {"isSuccess": false, "code": 3002, "message": "방 생성에 실패했습니다."},
     JOIN_ROOM_ERROR: {"isSuccess": false, "code": 3003, "message": "방 입장에 실패했습니다."},
     ROOMINFO_MODIFY_ERROR: {"isSuccess": false, "code": 3004, "message": "방 정보 수정에 실패했습니다."},
+    USER_LOCALPASSPORT_ERROR: {"isSuccess": false, "code": 3006, "message": "LocalStrategy에서 유저 생성에 실패했습니다."},
 
 
     //Connection, Transaction 등의 서버 오류
