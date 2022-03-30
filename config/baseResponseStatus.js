@@ -22,6 +22,7 @@ module.exports = {
     ROOM_CAPACITY_ERROR: {"isSuccess": false, "code": 2007, "message": "방 정원(4~6)을 확인해주세요."},
     ROOM_ROOMID_NOT_EXIST: {"isSuccess": false, "code": 3010, "message": "해당 방이 존재하지 않습니다."},
     USER_ROOMID_NOT_EXIST: {"isSuccess": false, "code": 3011, "message": "해당 방에 입장한 유저가 존재하지 않습니다."},
+    EXIT_ROOM_ERROR: {"isSuccess": false, "code": 3012, "message": "게임 진행중에는 방을 나갈 수 없습니다."},
 
     // Response error
     SIGNIN_WITHDRAWAL_ACCOUNT: {"isSuccess": false, "code": 3001, "message": "탈퇴 된 계정입니다. 고객센터에 문의해주세요."},

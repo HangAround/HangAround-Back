@@ -5,19 +5,17 @@ const { Room } = require("../../entities/Room");
 const { getRepository, getConnection } = require("typeorm");
 const baseResponse = require("../../../config/baseResponseStatus");
 const { errResponse, response } = require("../../../config/response");
-const {ROOM_ROOMID_NOT_EXIST, SUCCESS, USER_ROOMID_NOT_EXIST} = require("../../../config/baseResponseStatus");
+const { ROOM_ROOMID_NOT_EXIST, SUCCESS, USER_ROOMID_NOT_EXIST } = require("../../../config/baseResponseStatus");
 
-const baseResponse = require("../../../config/baseResponseStatus");
-
-router.patch('/:roomId/roomInfo', async (req, res)=> {
+router.patch('/:roomId/roomInfo', async (req, res) => {
     try {
         let roomId = req.params.roomId;
-        let {roomName, maxPlayer} = req.body;
+        let { roomName, maxPlayer } = req.body;
 
         let roomRepository = getRepository(Room);
-        let room = await roomRepository.findOne({roomId});
+        let room = await roomRepository.findOne({ roomId });
 
-        if(maxPlayer < room.playerCnt || maxPlayer < 4 || maxPlayer > 6) {
+        if (maxPlayer < room.playerCnt || maxPlayer < 4 || maxPlayer > 6) {
             res.send(errResponse(baseResponse.ROOM_CAPACITY_ERROR));
         } else {
             room.maxPlayer = maxPlayer;
@@ -46,7 +44,7 @@ router.get('/:roomId/roomInfo', async (req, res) => {
 router.get('/:roomId/userInfo', async (req, res) => {
     const userRepository = getRepository(User);
     const users = await userRepository.find({
-        where: {room: req.params.roomId}
+        where: { room: req.params.roomId }
     })
     if (users.length == 0) {
         console.log("해당 방에 참여한 유저가 없습니다. 해당 방을 삭제합니다.");
@@ -54,25 +52,51 @@ router.get('/:roomId/userInfo', async (req, res) => {
         res.send(errResponse(USER_ROOMID_NOT_EXIST));
     } else {
         const room = await getRepository(Room)
-            .update(req.params.roomId, {playerCnt: users.length});
+            .update(req.params.roomId, { playerCnt: users.length });
         res.send(response(SUCCESS, users));
     }
 });
 
-router.get('/:userId/delete_room', async (req, res) => {
+//room 삭제
+router.delete('/:userId/delete_room', async (req, res) => {
     const userRepository = getRepository(User);
     const user = await userRepository.findOne(req.params.userId);
 
+    const { roomId } = req.body;
+
     const roomRepository = getRepository(Room);
-    const room = await roomRepository.findOne(user.room);
+    //const room = await roomRepository.findOne(user.room);
+    const room = await roomRepository.findOne(roomId);
 
-    if (room.ownerId === req.params.userId) {
-        const users = await getRepository(User)
-            .createQueryBuilder()
-            .where({ room: room.roomId })
-            .getMany();
+    if (room.gameId === 1) {
+        if (room.ownerId === req.params.userId) {
+            const users = await getRepository(User)
+                .createQueryBuilder()
+                .where({ room: room.roomId })
+                .getMany();
 
-        for (i = 0; i < users.length; i++) {
+            for (i = 0; i < users.length; i++) {
+                await getConnection()
+                    .createQueryBuilder()
+                    .update(User)
+                    .set({
+                        room: null
+                    })
+                    .where({
+                        userId: users[i].userId
+                    })
+                    .execute();
+            }
+
+            await getConnection()
+                .createQueryBuilder()
+                .delete()
+                .from(Room)
+                .where({ ownerId: req.params.userId })
+                .execute();
+            res.send(response(baseResponse.DELETE_ROOM_SUCCESS));
+        }
+        else {
             await getConnection()
                 .createQueryBuilder()
                 .update(User)
@@ -80,31 +104,14 @@ router.get('/:userId/delete_room', async (req, res) => {
                     room: null
                 })
                 .where({
-                    userId: users[i].userId
+                    userId: req.params.userId
                 })
                 .execute();
+            res.send(response(baseResponse.EXIT_ROOM_SUCCESS));
         }
-
-        await getConnection()
-            .createQueryBuilder()
-            .delete()
-            .from(Room)
-            .where({ ownerId: req.params.userId })
-            .execute();
-        res.send(response(baseResponse.DELETE_ROOM_SUCCESS));
     }
     else {
-        await getConnection()
-            .createQueryBuilder()
-            .update(User)
-            .set({
-                room: null
-            })
-            .where({
-                userId: req.params.userId
-            })
-            .execute();
-        res.send(response(baseResponse.EXIT_ROOM_SUCCESS));
+        res.send(response(baseResponse.EXIT_ROOM_ERROR));
     }
 });
 module.exports = router;
