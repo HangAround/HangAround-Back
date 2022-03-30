@@ -25,7 +25,12 @@ exports.verifyToken = (req, res, next) => {
             return res.errResponse(baseResponse.TOKEN_EMPTY);
         }
         req.decoded = jwt.verify(token, process.env.JWT_SECRET);
-        return next();
+        if (req.decoded) {
+            res.locals.userId = req.decoded.id
+            return next();
+        }else{
+            return errResponse(baseResponse.TOKEN_VERIFICATION_FAILURE)
+        }
     } catch (error) {
         if (error.name === 'TokenExpiredError') { // 유효기간 초과
             return errResponse(baseResponse.TOKEN_EXPIRED_ERROR);
