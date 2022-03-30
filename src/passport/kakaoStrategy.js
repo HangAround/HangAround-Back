@@ -12,7 +12,7 @@ module.exports = () => {
         try {
             const userRepository = getRepository(User);
             const exUser = await userRepository.findOne({where: {snsId: profile.id, channel: "kakao"}});
-            if (exUser != undefined) {
+            if (exUser !== undefined) {
                 done(null, exUser);
             } else {
                 const newUser = await userRepository.create({
