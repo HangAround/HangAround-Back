@@ -45,7 +45,7 @@ router.get('/:roomCode/roomInfo', isLoggedIn, verifyToken, async (req, res) => {
 router.get('/:roomCode/userInfo', isLoggedIn, verifyToken, async (req, res) => {
     const users = await createQueryBuilder('User','user')
         .innerJoinAndSelect("user.room",'room')
-        .select(['user.userId', 'user.userName', 'room.roomId'])
+        .select(['user.userId', 'user.userName', 'room.roomCode'])
         .where({room:{roomCode: req.params.roomCode}})
         .getMany()
 
