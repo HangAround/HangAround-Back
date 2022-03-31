@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {User} = require("../../entities/User");
 const {Room} = require("../../entities/Room");
-const {getRepository, getConnection} = require("typeorm");
+const {getRepository, getConnection, createQueryBuilder} = require("typeorm");
 const baseResponse = require("../../../config/baseResponseStatus");
 const {errResponse, response} = require("../../../config/response");
 const {isLoggedIn, verifyToken} = require("../middleware");
@@ -31,9 +31,9 @@ router.patch('/:roomCode/roomInfo', isLoggedIn, verifyToken, async (req, res) =>
 });
 
 //room 정보 조회
-router.get('/:roomId/roomInfo', isLoggedIn, verifyToken, async (req, res) => {
+router.get('/:roomCode/roomInfo', isLoggedIn, verifyToken, async (req, res) => {
     const roomRepository = getRepository(Room);
-    const room = await roomRepository.findOne(req.params.roomId);
+    const room = await roomRepository.findOne({roomCode: req.params.roomCode});
     if (!room) {
         res.send(errResponse(baseResponse.ROOM_ROOMID_NOT_EXIST));
     } else {
@@ -42,14 +42,14 @@ router.get('/:roomId/roomInfo', isLoggedIn, verifyToken, async (req, res) => {
 });
 
 //room에 접속한 user 정보 조회
-router.get('/:roomId/userInfo', isLoggedIn, verifyToken, async (req, res) => {
-    const userRepository = getRepository(User);
-    const users = await userRepository.find({
-        where: {room: req.params.roomId}
-    })
+router.get('/:roomCode/userInfo', isLoggedIn, verifyToken, async (req, res) => {
+    const users = await createQueryBuilder('User','user')
+        .innerJoinAndSelect("user.room",'room')
+        .select(['user.userId', 'user.userName', 'room.roomCode'])
+        .where({room:{roomCode: req.params.roomCode}})
+        .getMany()
+
     if (!users.length) {
-        console.log("해당 방에 참여한 유저가 없습니다. 해당 방을 삭제합니다.");
-        await getRepository(Room).delete(req.params.roomId);
         res.send(errResponse(baseResponse.USER_ROOMID_NOT_EXIST));
     } else {
         res.send(response(baseResponse.SUCCESS, users));
