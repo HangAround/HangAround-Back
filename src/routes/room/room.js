@@ -30,7 +30,7 @@ router.patch('/:roomCode/roomInfo', isLoggedIn, verifyToken, async (req, res) =>
     }
 });
 
-//room 정보 조회
+//room 정보 조회 (예지)
 router.get('/:roomCode/roomInfo', isLoggedIn, verifyToken, async (req, res) => {
     const roomRepository = getRepository(Room);
     const room = await roomRepository.findOne({roomCode: req.params.roomCode});
@@ -41,13 +41,13 @@ router.get('/:roomCode/roomInfo', isLoggedIn, verifyToken, async (req, res) => {
     }
 });
 
-//room에 접속한 user 정보 조회
+//room에 접속한 user 정보 조회 (예지)
 router.get('/:roomCode/userInfo', isLoggedIn, verifyToken, async (req, res) => {
     const users = await createQueryBuilder('User','user')
         .innerJoinAndSelect("user.room",'room')
         .select(['user.userId', 'user.userName', 'room.roomCode'])
         .where({room:{roomCode: req.params.roomCode}})
-        .getMany()
+        .getMany();
 
     if (!users.length) {
         res.send(errResponse(baseResponse.USER_ROOMID_NOT_EXIST));
