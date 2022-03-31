@@ -56,7 +56,7 @@ router.get('/:roomId/userInfo', isLoggedIn, verifyToken, async (req, res) => {
 });
 
 //room 삭제
-router.delete('/:userId/delete_room', async (req, res) => {
+router.delete('/:roomCode/delete_room/:userId', isLoggedIn, verifyToken, async (req, res) => {
     const userRepository = getRepository(User);
     const user = await userRepository.findOne(req.params.userId,{
         relations: ['room'],
@@ -70,7 +70,7 @@ router.delete('/:userId/delete_room', async (req, res) => {
                 .createQueryBuilder()
                 .where({ room: room.roomId })
                 .getMany();
-            for (i = 0; i < users.length; i++) {
+            for (let i = 0; i < users.length; i++) {
                 await getConnection()
                     .createQueryBuilder()
                     .update(User)
