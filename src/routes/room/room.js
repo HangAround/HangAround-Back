@@ -7,6 +7,7 @@ const baseResponse = require("../../../config/baseResponseStatus");
 const { errResponse, response } = require("../../../config/response");
 const {isLoggedIn, verifyToken} = require("../middleware");
 
+//room 정보 수정
 router.patch('/:roomId/roomInfo', isLoggedIn, verifyToken, async (req, res) => {
     try {
         let roomId = req.params.roomId;
@@ -27,7 +28,7 @@ router.patch('/:roomId/roomInfo', isLoggedIn, verifyToken, async (req, res) => {
     } catch (error) {
         res.send(errResponse(baseResponse.ROOMINFO_MODIFY_ERROR));
     }
-})
+});
 
 //room 정보 조회
 router.get('/:roomId/roomInfo', isLoggedIn, verifyToken, async (req, res) => {
@@ -55,7 +56,18 @@ router.get('/:roomId/userInfo', isLoggedIn, verifyToken, async (req, res) => {
     }
 });
 
-//room 삭제
+//게임 선택
+router.patch('/:roomId/gameStart/:gameId', isLoggedIn, verifyToken, async(req, res) => {
+    const roomRepository = getRepository(Room);
+    const room = await roomRepository.findOne(req.params.roomId);
+
+    room.gameId = req.params.gameId;
+    await roomRepository.save(room);
+
+    res.send(response(baseResponse.SUCCESS));
+});
+
+//room 삭제 혹은 퇴장
 router.delete('/:userId/delete_room', async (req, res) => {
     const userRepository = getRepository(User);
     const user = await userRepository.findOne(req.params.userId,{
