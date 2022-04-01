@@ -12,7 +12,7 @@ router.use('/auth', auth);
 router.use('/room', roomRoutes);
 router.use('/room', gameRoutes);
 
-router.get('/login', isNotLoggedIn, (req, res) => {
+router.get('/login', (req, res) => {
     res.send("로그인 선택 화면");
 });
 

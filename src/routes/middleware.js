@@ -6,7 +6,7 @@ exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
-        return errResponse(baseResponse.AUTH_LOGIN_ERROR);
+        res.send(errResponse(baseResponse.AUTH_LOGIN_ERROR));
     }
 };
 
@@ -14,7 +14,7 @@ exports.isNotLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         next();
     } else {
-        res.redirect('/login');
+        res.redirect('/');
     }
 };
 
