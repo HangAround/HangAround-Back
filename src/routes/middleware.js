@@ -6,7 +6,7 @@ exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
-        res.send(baseResponse.AUTH_LOGIN_ERROR);
+        return errResponse(baseResponse.AUTH_LOGIN_ERROR);
     }
 };
 
@@ -22,25 +22,26 @@ exports.verifyToken = (req, res, next) => {
     try {
         const token = req.headers["auth"];
         if (!token) {
-            res.send(errResponse(baseResponse.TOKEN_EMPTY));
-        }
-        req.decoded = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-            if (err) {
-                console.error({auth: false, message: err});
-                throw err;
+            return errResponse(baseResponse.TOKEN_EMPTY);
+        } else {
+            req.decoded = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+                if (err) {
+                    console.error({auth: false, message: err});
+                    res.send(errResponse(baseResponse.TOKEN_VERIFICATION_FAILURE));
+                } else {
+                    next();
+                }
+            });
+            if (req.decoded) {
+                res.locals.userId = req.decoded.id;
+                return next();
             }
-            next();
-        });
-        if (req.decoded) {
-            res.locals.userId = req.decoded.id;
-            return next();
         }
-        else
-            throw req.decoded;
     } catch (error) {
         if (error.name === 'TokenExpiredError') { // 유효기간 초과
-            res.send(errResponse(baseResponse.TOKEN_EXPIRED_ERROR));
+            return errResponse(baseResponse.TOKEN_EXPIRED_ERROR);
+        } else {
+            return errResponse(baseResponse.TOKEN_VERIFICATION_FAILURE);
         }
-        res.send(errResponse(baseResponse.TOKEN_VERIFICATION_FAILURE));
     }
 };
