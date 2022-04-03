@@ -32,9 +32,6 @@ export class Room {
   @Column("int", { name: "player_cnt", nullable: true })
   playerCnt: number | 0;
 
-  @Column("varchar", { name: "game_status", nullable: true, length: 45 })
-  gameStatus: string | null;
-
   @Column("int", { name: "game_id" })
   gameId: number;
 
