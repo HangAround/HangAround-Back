@@ -9,12 +9,12 @@ const baseResponse = require("../../../config/baseResponseStatus");
 const { errResponse, response } = require("../../../config/response");
 const { isLoggedIn, verifyToken } = require("../middleware");
 
+
 //라이어 및 제시어 랜덤 배정
-router.post('/settings/:liarCategory', async (req, res) => {
-    const { roomCode } = req.body;
+router.post('/:roomCode/liarGame/settings/:liarCategory', isLoggedIn, verifyToken, async (req, res) => {
     const roomRepository = getRepository(Room);
     const room = await roomRepository.findOne({
-        where: { roomCode: roomCode }
+        where: { roomCode: req.params.roomCode }
     });
 
     const liar_num = Math.floor(Math.random() * (room.playerCnt)) + 1;
@@ -45,23 +45,26 @@ router.post('/settings/:liarCategory', async (req, res) => {
         })
         .execute()
 
-    const json_liar = { 'liar': users[liar_num - 1].userName };
-    const json_liarKeyword = { 'liarKeyword': liarData.liarKeyword };
+    const j_liar = { 'userId': parseInt(users[liar_num - 1].userId) };
+    const j_dataId = { 'liarDataId': liarData.liarDataId };
+    const j_category = { 'liarCategory': liarData.liarCategory};
+    const j_keyword = { 'liarKeyword': liarData.liarKeyword };
 
-    res.send(response(baseResponse.SUCCESS, Object.assign(json_liar, json_liarKeyword)));
+    res.send(response(baseResponse.SUCCESS, Object.assign(j_liar, j_dataId, j_category, j_keyword)));
 });
 
 //liarAnswerId를 통해 해당 카테고리의 liar data 전달
-router.post('/:liarAnswerId', isLoggedIn, verifyToken, async (req, res) => {
+router.get('/:roomCode/liarGame/:liarAnswerId', isLoggedIn, verifyToken, async (req, res) => {
     const liarDataRepository = getRepository(LiarData);
     const liarData = await liarDataRepository.findOne({
         where: { liarDataId: req.params.liarAnswerId }
     });
 
+    let category = 0;
     if ((liarData.liarDataId % 25) === 0) {
-        const category = parseInt(liarData.liarDataId / 25);
+        category = parseInt(liarData.liarDataId / 25);
     } else {
-        const category = parseInt(liarData.liarDataId / 25) + 1;
+        category = parseInt(liarData.liarDataId / 25) + 1;
     }
 
     const numberArray = Array.from({ length: 25 }, (v, i) => i);

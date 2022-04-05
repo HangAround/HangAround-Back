@@ -3,6 +3,6 @@ const router = express.Router();
 
 const liarGame = require('./liarGame.js');
 
-router.use('/:roomCode/liar_game', liarGame);
+router.use('', liarGame);
 
 module.exports = router;

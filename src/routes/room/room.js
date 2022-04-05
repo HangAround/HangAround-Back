@@ -68,7 +68,7 @@ router.patch('/:roomCode/gameStart/:gameId', isLoggedIn, verifyToken, async (req
 });
 
 //room 삭제 혹은 퇴장 (진주)
-router.delete('/:roomCode/delete_room/:userId', isLoggedIn, verifyToken, async (req, res) => {
+router.delete('/:roomCode/deleteRoom/:userId', isLoggedIn, verifyToken, async (req, res) => {
     const userRepository = getRepository(User);
     const user = await userRepository.findOne(req.params.userId, {
         relations: ['room'],
