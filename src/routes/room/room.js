@@ -9,7 +9,7 @@ const {isLoggedIn, verifyToken} = require("../middleware");
 const {Liar} = require("../../entities/Liar");
 
 //room 정보 수정
-router.patch('/:roomCode/roomInfo', isLoggedIn, verifyToken, async (req, res) => {
+router.patch('/:roomCode/roomInfo',  verifyToken, async (req, res) => {
     try {
         let roomCode = req.params.roomCode;
         let {roomName, maxPlayer} = req.body;
@@ -32,7 +32,7 @@ router.patch('/:roomCode/roomInfo', isLoggedIn, verifyToken, async (req, res) =>
 });
 
 //room 정보 조회 (예지)
-router.get('/:roomCode/roomInfo', isLoggedIn, verifyToken, async (req, res) => {
+router.get('/:roomCode/roomInfo', verifyToken, async (req, res) => {
     const roomRepository = getRepository(Room);
     const room = await roomRepository.findOne({roomCode: req.params.roomCode});
     if (!room) {
@@ -43,7 +43,7 @@ router.get('/:roomCode/roomInfo', isLoggedIn, verifyToken, async (req, res) => {
 });
 
 //room에 접속한 user 정보 조회 (예지)
-router.get('/:roomCode/userInfo', isLoggedIn, verifyToken, async (req, res) => {
+router.get('/:roomCode/userInfo',  verifyToken, async (req, res) => {
     const users = await createQueryBuilder('User', 'user')
         .innerJoinAndSelect("user.room", 'room')
         .select(['user.userId', 'user.userName', 'room.roomCode'])
@@ -58,7 +58,7 @@ router.get('/:roomCode/userInfo', isLoggedIn, verifyToken, async (req, res) => {
 });
 
 //게임 선택
-router.patch('/:roomCode/gameStart/:gameId', isLoggedIn, verifyToken, async (req, res) => {
+router.patch('/:roomCode/gameStart/:gameId',  verifyToken, async (req, res) => {
     const roomRepository = getRepository(Room);
     const room = await roomRepository.findOne(req.params.roomCode);
 
@@ -68,7 +68,7 @@ router.patch('/:roomCode/gameStart/:gameId', isLoggedIn, verifyToken, async (req
     res.send(response(baseResponse.SUCCESS));
 });
 
-router.delete('/:roomCode/end_game', isLoggedIn, verifyToken, async (req, res) => {
+router.delete('/:roomCode/end_game',  verifyToken, async (req, res) => {
     let roomRepository = getRepository(Room);
     let room = await roomRepository.findOne({roomCode: req.params.roomCode});
     // 라이어게임 데이터 삭제
@@ -92,7 +92,7 @@ router.delete('/:roomCode/end_game', isLoggedIn, verifyToken, async (req, res) =
 });
 
 //room 삭제 혹은 퇴장 ()
-router.delete('/:roomCode/delete_room/:userId', isLoggedIn, verifyToken, async (req, res) => {
+router.delete('/:roomCode/delete_room/:userId', verifyToken, async (req, res) => {
     const userRepository = getRepository(User);
     const user = await userRepository.findOne(req.params.userId, {
         relations: ['room'],

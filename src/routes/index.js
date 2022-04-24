@@ -16,7 +16,7 @@ router.get('/login', (req, res) => {
     res.send("로그인 선택 화면");
 });
 
-router.get('/', isLoggedIn, (req, res) => {
+router.get('/',  (req, res) => {
     res.send("로그인 후 홈화면");
 });
 
