@@ -1,10 +1,11 @@
 const express = require('express');
 const {response} = require("../../../config/response");
 const baseResponse = require("../../../config/baseResponseStatus");
+const {verifyToken} = require("../middleware");
 
 const router = express.Router();
 
-router.get('', async (req, res) => {
+router.get('', verifyToken, async (req, res) => {
     const consonant = ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
     let first = Math.floor(Math.random() * consonant.length);
     let second = Math.floor(Math.random() * consonant.length);
