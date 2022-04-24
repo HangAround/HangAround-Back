@@ -19,7 +19,7 @@ router.get('/ex', async (req, res) => {
     res.send(user);
 });
 
-router.put('/', isLoggedIn, verifyToken, async (req, res) => {
+router.put('/',  verifyToken, async (req, res) => {
     try {
         let {userId, userName, roomCode} = req.body;
 

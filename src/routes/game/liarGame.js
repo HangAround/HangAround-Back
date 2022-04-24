@@ -11,7 +11,7 @@ const { isLoggedIn, verifyToken } = require("../middleware");
 
 
 //라이어 및 제시어 랜덤 배정
-router.post('/:roomCode/liarGame/settings/:liarCategory', isLoggedIn, verifyToken, async (req, res) => {
+router.post('/:roomCode/liarGame/settings/:liarCategory', verifyToken, async (req, res) => {
     const roomRepository = getRepository(Room);
     const room = await roomRepository.findOne({
         where: { roomCode: req.params.roomCode }
@@ -54,7 +54,7 @@ router.post('/:roomCode/liarGame/settings/:liarCategory', isLoggedIn, verifyToke
 });
 
 //liarAnswerId를 통해 해당 카테고리의 liar data 전달
-router.get('/:roomCode/liarGame/:liarAnswerId', isLoggedIn, verifyToken, async (req, res) => {
+router.get('/:roomCode/liarGame/:liarAnswerId', verifyToken, async (req, res) => {
     const liarDataRepository = getRepository(LiarData);
     const liarData = await liarDataRepository.findOne({
         where: { liarDataId: req.params.liarAnswerId }
