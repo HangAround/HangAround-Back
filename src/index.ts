@@ -4,7 +4,7 @@ import {createConnection, Connection} from "typeorm";
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const passportConfig = require('./passport');
-const logger = require('morgan');
+
 const session = require('express-session');
 const nunjucks = require('nunjucks');
 const express = require('express');
@@ -30,9 +30,29 @@ passportConfig(); // 패스포트 설정
 
 app.set('port', process.env.PORT || 3000);
 
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+const morgan = require('morgan');
+//winston 사용
+const {logger, stream}= require('./winston');
+const combined = ':remote-addr - :remote-user ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'
+// 기존 combined 포맷에서 timestamp 만 제거
+const morganFormat = process.env.NODE_ENV !== "production" ? "dev" : combined;
+// NOTE: morgan 출력 형태 server.env에서 NODE_ENV 설정 production : 배포 dev : 개발
+console.log(morganFormat);
+
+app.use(morgan(morganFormat, {stream}));
+
+app.get("/", (req,res) => {
+    logger.info("info_test");
+    logger.warn("warn_test");
+    logger.error("error_test");
+    return res.json({hello: "world"});
+})
+
+//여기 까지
+
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
     resave: false,
