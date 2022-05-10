@@ -4,7 +4,7 @@ import {createConnection, Connection} from "typeorm";
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const passportConfig = require('./passport');
-const logger = require('morgan');
+
 const session = require('express-session');
 const nunjucks = require('nunjucks');
 const express = require('express');
@@ -30,49 +30,35 @@ passportConfig(); // 패스포트 설정
 
 app.set('port', process.env.PORT || 3000);
 
-// 1. ws 모듈 취득
-const WebSocketS = require("ws");
 
-// 2. WebSocket 서버 생성/구동 
-const webSocketServer = new WebSocketS.Server( 
-    {   server: app, // WebSocket서버에 연결할 HTTP서버를 지정한다. 
-        //port: 3000 // WebSocket연결에 사용할 port를 지정한다(생략시, http서버와 동일한 port 공유 사용) 
-    } 
-);
-
-// connection(클라이언트 연결) 이벤트 처리
-webSocketServer.on('connection', (ws, request)=>{
-    // 1) 연결 클라이언트 IP 취득 
-    const ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
-    console.log(`새로운 클라이언트[${ip}] 접속`);
-    
-    // 2) 클라이언트에게 메시지 전송
-    if(ws.readyState === ws.OPEN){ // 연결 여부 체크 
-        ws.send(`클라이언트[${ip}] 접속을 환영합니다 from 서버`); // 데이터 전송 
-    } 
-    
-    // 3) 클라이언트로부터 메시지 수신 이벤트 처리 
-    ws.on('message', (msg)=>{ 
-        console.log(`클라이언트[${ip}]에게 수신한 메시지 : ${msg}`);
-        ws.send('메시지 잘 받았습니다! from 서버') });
-        
-    // 4) 에러 처러 
-    ws.on('error', (error)=>{
-        console.log(`클라이언트[${ip}] 연결 에러발생 : ${error}`); 
-    }) 
-    
-    // 5) 연결 종료 이벤트 처리 
-    ws.on('close', ()=>{ 
-        console.log(`클라이언트[${ip}] 웹소켓 연결 종료`); 
-    }) 
-});
+// 2. "/" 경로 라우팅 처리 
+app.use("/jinjoo", (req, res)=>{ 
+    res.sendFile(path.join(__dirname, './index.html')); // index.html 파일 응답 
+})
 
 
-
-
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+const morgan = require('morgan');
+//winston 사용
+const {logger, stream}= require('./winston');
+const combined = ':remote-addr - :remote-user ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'
+// 기존 combined 포맷에서 timestamp 만 제거
+const morganFormat = process.env.NODE_ENV !== "production" ? "dev" : combined;
+// NOTE: morgan 출력 형태 server.env에서 NODE_ENV 설정 production : 배포 dev : 개발
+console.log(morganFormat);
+
+app.use(morgan(morganFormat, {stream}));
+
+app.get("/", (req,res) => {
+    logger.info("info_test");
+    logger.warn("warn_test");
+    logger.error("error_test");
+    return res.json({hello: "world"});
+})
+
+//여기 까지
+
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
     resave: false,
