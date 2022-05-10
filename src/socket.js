@@ -5,7 +5,7 @@ module.exports = (server, app) => {
     const io = SocketIO(server);
 
     io.on('connection', (socket) => {
-    console.log('room 네임스페이스에 접속');
+    console.log('소켓 접속');
 
     socket.on('ping',msg => {
         console.log(msg);
@@ -13,28 +13,13 @@ module.exports = (server, app) => {
     });
 
     app.set('io', io);
-    const room = io.of('/room');
-    const chat = io.of('/chat');
+    const gameRoom = io.of('/consonantGame');
 
-    room.on('connection', (socket) => {
+    gameRoom.on('connection', (socket) => {
         console.log('room 네임스페이스에 접속');
         socket.on('disconnect', () => {
             console.log('room 네임스페이스 접속 해제');
         });
     });
 
-    chat.on('connection', (socket) => {
-        console.log('chat 네임스페이스에 접속');
-        const req = socket.request;
-        const { headers: { referer } } = req;
-        const roomId = referer
-            .split('/')[referer.split('/').length - 1]
-            .replace(/\?.+/, '');
-        socket.join(roomId);
-
-        socket.on('disconnect', () => {
-            console.log('chat 네임스페이스 접속 해제');
-            socket.leave(roomId);
-        });
-    });
 };
