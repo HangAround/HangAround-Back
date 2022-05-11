@@ -4,22 +4,27 @@ const SocketIO = require('socket.io');
 module.exports = (server, app) => {
     const io = SocketIO(server);
 
-    io.on('connection', (socket) => {
-    console.log('소켓 접속');
+    app.set('io', io);
 
-    socket.on('ping',msg => {
-        console.log(msg);
-    })
+    io.on('connection', (socket) => {
+        socket.on('ping', msg => {
+            console.log(msg);
+            //socket.emit('pong', {comment: "여기선 이렇게"+'\n'});
+        })
     });
 
-    app.set('io', io);
     const gameRoom = io.of('/consonantGame');
 
     gameRoom.on('connection', (socket) => {
-        console.log('room 네임스페이스에 접속');
+
+        socket.on('userId', (data) => {
+            let roomCode = data.roomCode;
+            socket.join(roomCode); //룸 접속
+            app.get('io').of('/consonantGame').to(roomCode).emit('notice', `${data.userId}님 정답입니다!`);
+        });
+
         socket.on('disconnect', () => {
-            console.log('room 네임스페이스 접속 해제');
+            socket.leave(roomCode);
         });
     });
-
 };
