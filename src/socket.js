@@ -1,5 +1,5 @@
 const SocketIO = require('socket.io');
-const consonantGame = require('./routes/game/consonantGame');
+const randomConsonant = require('./routes/game/consonantGame');
 
 module.exports = (server, app) => {
     const io = SocketIO(server);
@@ -19,18 +19,15 @@ module.exports = (server, app) => {
             roomCode = obj.roomCode;
             name = obj.name;
 
-            if(!rooms.includes(roomCode)) {
+            if (!rooms.includes(roomCode)) {
                 rooms.push(roomCode);
             }
             console.log(rooms);
-            socket.join(roomCode, () => {
-                console.log('join');
-                console.log(name + ' join a ' + roomCode);
-                let consonant = consonantGame.randomConsonant();
-                consonantGame.to(roomCode).emit('consonant', {'consonant': consonant});
-
-            });
-            console.log('test end');
+            socket.join(roomCode);
+            console.log(name + ' join a ' + roomCode);
+            let consonant = randomConsonant.randomConsonant();
+            consonantGame.to(roomCode).emit('consonant', {'consonant': consonant});
+            console.log('consonant is ' + consonant);
         });
 
         //타이머 세팅
