@@ -12,7 +12,7 @@ module.exports = (server, app) => {
 
     //socket connection
     gameRoom.on('connection', (socket) => {
-        console.log('consonantGame 네임스페이스에 접속');
+        console.log('gameRoom 네임스페이스에 접속');
 
         //room 입장
         socket.on('join', (data) => {
@@ -36,7 +36,7 @@ module.exports = (server, app) => {
             console.log(name + ' join a ' + roomCode);
         });
 
-        socket.on('consonantGameStart', async () => {
+        socket.on('gameStart', async () => {
             //초성 알림
             let consonant = randomConsonant.randomConsonant();
             socket.to(roomCode).emit('consonant', {'consonant': consonant});
@@ -46,10 +46,14 @@ module.exports = (server, app) => {
         socket.on('response', () => {
             setTimeout(() => {
                 console.log('timeOver');
-                socket.to(roomCode).emit('timeOver');
+                socket.to(roomCode).emit('timeOver', {
+                    msg: `타이머가 종료되었습니다.`
+                });
             }, 180000);
             console.log("3분 타이머 세팅")
-            socket.to(roomCode).emit('timerStart');
+            socket.to(roomCode).emit('timerStart',{
+                msg: `타이머가 세팅되었습니다.`
+            });
         });
 
     });
