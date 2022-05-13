@@ -9,7 +9,6 @@ module.exports = (server, app) => {
     io.on('connection', (socket) => {
         socket.on('ping', msg => {
             console.log(msg);
-            //socket.emit('pong', {comment: "여기선 이렇게"+'\n'});
         })
     });
 
@@ -17,10 +16,12 @@ module.exports = (server, app) => {
 
     gameRoom.on('connection', (socket) => {
 
-        socket.on('userId', (data) => {
+        socket.on('userName', (data) => {
             let roomCode = data.roomCode;
             socket.join(roomCode); //룸 접속
-            app.get('io').of('/consonantGame').to(roomCode).emit('notice', `${data.userId}님 정답입니다!`);
+            app.get('io').of('/consonantGame').to(roomCode).emit('notice', `${data.userName}님 정답입니다!`);
+            console.log(io.sockets.adapter.rooms.get);
+            console.log('JOIN ROOM LIST', io.sockets.adapter.rooms);
         });
 
         socket.on('disconnect', () => {
