@@ -15,7 +15,6 @@ module.exports = (server, app) => {
         })
     });
 
-    app.set('io', io);
     const gameRoom = io.of('/consonantGame');
 
     gameRoom.on('connection', (socket) => {
@@ -24,7 +23,7 @@ module.exports = (server, app) => {
         let count = 0;
         let roomCode = "";
         let players = 0;
-        socket.on('userId', async (data) => {
+        socket.on('userName', async (data) => {
             roomCode = data.roomCode;
             socket.join(roomCode); //룸 접속
 
@@ -37,7 +36,10 @@ module.exports = (server, app) => {
                     app.get('io').of('/consonantGame').to(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
                 } else {
                     count++;
-                    app.get('io').of('/consonantGame').to(roomCode).emit('notice', `${data.userId}님 정답입니다!`);
+                    app.get('io').of('/consonantGame').to(roomCode).emit('notice', `${data.userName}님 정답입니다!`);
+                    if(count === players-1) {
+                        app.get('io').of('/consonantGame').to(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
+                    }
                 }
             } else {
                 console.log('room from database is not defined!');
