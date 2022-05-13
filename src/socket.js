@@ -48,7 +48,6 @@ module.exports = (server, app) => {
         //정답자 공지
         socket.on('userName', async (data) => {
             roomCode = data.roomCode;
-            socket.join(roomCode);
             let roomRepository = getRepository(Room);
             let room = await roomRepository.findOne({roomCode});
             if (room !== undefined) {
