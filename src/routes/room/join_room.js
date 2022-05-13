@@ -50,6 +50,13 @@ router.put('/',  verifyToken, async (req, res) => {
             await roomRepository.save(room);
             let json_room_id = {'roomId': room.roomId};
 
+            const io = req.app.get('io');
+            io.of('/gameRoom').join(roomCode);
+            io.of('/gameRoom').to(roomCode).emit('join', {
+                msg: `${userName}님이 입장했습니다.`
+            });
+            console.log(userName + ' join a ' + roomCode);
+
             res.send(response(baseResponse.SUCCESS, json_room_id));
         }
     } catch (error) {

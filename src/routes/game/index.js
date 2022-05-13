@@ -5,6 +5,6 @@ const liarGame = require('./liarGame.js');
 const consonantGame = require('./consonantGame.js');
 
 router.use('', liarGame);
-router.use('/:roomCode/consonantGame',consonantGame)
+router.use('/:roomCode/consonantGame',consonantGame.router)
 
 module.exports = router;
