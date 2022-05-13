@@ -1,5 +1,7 @@
 const SocketIO = require('socket.io');
 const randomConsonant = require('./routes/game/consonantGame');
+const {Room} = require("./entities/Room");
+const {getRepository} = require("typeorm");
 
 module.exports = (server, app) => {
     const io = SocketIO(server);
@@ -21,7 +23,7 @@ module.exports = (server, app) => {
             name = obj.name;
 
             let consonant = randomConsonant.randomConsonant();
-            socket.to(roomCode).emit('consonant', { 'consonant': consonant });
+            socket.to(roomCode).emit('consonant', {'consonant': consonant});
             console.log('consonant is ' + consonant);
         });
 
@@ -39,11 +41,31 @@ module.exports = (server, app) => {
             });
         });
 
+        let count = 0;
+        let roomCode = "";
+        let players = 0;
+      
         //정답자 공지
-        socket.on('userName', (data) => {
+        socket.on('userName', async (data) => {
             roomCode = data.roomCode;
-            socket.join(roomCode);
-            app.get('io').of('/consonantGame').to(roomCode).emit('notice', `${data.userName}님 정답입니다!`);
+            let roomRepository = getRepository(Room);
+            let room = await roomRepository.findOne({roomCode});
+            if (room !== undefined) {
+                players = room.playerCnt;
+                console.log(players);
+                if (count === players - 1) {
+                    app.get('io').of('/consonantGame').to(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
+                } else {
+                    count++;
+                    app.get('io').of('/consonantGame').to(roomCode).emit('notice', `${data.userName}님 정답입니다!`);
+                    //게임 종료 공지
+                    if (count === players - 1) {
+                        app.get('io').of('/consonantGame').to(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
+                    }
+                }
+            } else {
+                console.log('room from database is not defined!');
+            }
         });
 
     });
