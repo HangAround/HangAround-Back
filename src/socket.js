@@ -21,7 +21,7 @@ module.exports = (server, app) => {
             name = obj.name;
 
             let consonant = randomConsonant.randomConsonant();
-            socket.to(roomCode).emit('consonant', {'consonant': consonant});
+            socket.to(roomCode).emit('consonant', { 'consonant': consonant });
             console.log('consonant is ' + consonant);
         });
 
@@ -34,18 +34,16 @@ module.exports = (server, app) => {
                 });
             }, 180000);
             console.log("3분 타이머 세팅")
-            socket.to(roomCode).emit('timerStart',{
+            socket.to(roomCode).emit('timerStart', {
                 msg: `타이머가 세팅되었습니다.`
             });
         });
-      
-      //정답자 공지
-      socket.on('userName', (data) => {
-            let roomCode = data.roomCode;
-            socket.join(roomCode); //룸 접속
+
+        //정답자 공지
+        socket.on('userName', (data) => {
+            roomCode = data.roomCode;
+            socket.join(roomCode);
             app.get('io').of('/consonantGame').to(roomCode).emit('notice', `${data.userName}님 정답입니다!`);
-            console.log(io.sockets.adapter.rooms.get);
-            console.log('JOIN ROOM LIST', io.sockets.adapter.rooms);
         });
 
     });
