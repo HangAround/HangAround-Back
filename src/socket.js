@@ -5,6 +5,7 @@ module.exports = (server, app) => {
     const io = SocketIO(server);
     app.set('io', io);
 
+
     //네임스페이스 및 룸 세팅
     const gameRoom = io.of('/gameRoom');
     let roomCode, name;
@@ -24,6 +25,7 @@ module.exports = (server, app) => {
             console.log('consonant is ' + consonant);
         });
 
+        //타이머 셋팅
         socket.on('response', () => {
             setTimeout(() => {
                 console.log('timeOver');
@@ -36,11 +38,19 @@ module.exports = (server, app) => {
                 msg: `타이머가 세팅되었습니다.`
             });
         });
+      
+      //정답자 공지
+      socket.on('userName', (data) => {
+            let roomCode = data.roomCode;
+            socket.join(roomCode); //룸 접속
+            app.get('io').of('/consonantGame').to(roomCode).emit('notice', `${data.userName}님 정답입니다!`);
+            console.log(io.sockets.adapter.rooms.get);
+            console.log('JOIN ROOM LIST', io.sockets.adapter.rooms);
+        });
 
     });
 
     gameRoom.on('disconnect', () => {
         console.log('room 네임스페이스 접속 해제');
     });
-
 };
