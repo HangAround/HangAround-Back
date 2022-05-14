@@ -11,17 +11,27 @@ module.exports = (server, app) => {
     //네임스페이스 및 룸 세팅
     const gameRoom = io.of('/gameRoom');
     let roomCode, name;
+    let count = 0;
+    let players = 0;
 
     //socket connection
     gameRoom.on('connection', (socket) => {
         console.log('gameRoom 네임스페이스에 접속');
 
-        //초성 알림
-        socket.on('gameStart', async (data) => {
-            const obj = JSON.parse(data);
-            roomCode = obj.roomCode;
-            name = obj.name;
+        //room 입장
+        socket.on('join', (data) => {
+            roomCode = data.roomCode;
+            name = data.name;
+            socket.join(roomCode);
+            socket.to(roomCode).emit('join', {
+                msg: `${name}님이 입장했습니다.`
+            });
+            console.log(name + ' join a ' + roomCode);
+        });
 
+        //초성 알림
+        socket.on('gameStart', (data) => {
+            roomCode = data.roomCode;
             let consonant = randomConsonant.randomConsonant();
             socket.to(roomCode).emit('consonant', {'consonant': consonant});
             console.log('consonant is ' + consonant);
@@ -41,10 +51,6 @@ module.exports = (server, app) => {
             });
         });
 
-        let count = 0;
-        let roomCode = "";
-        let players = 0;
-      
         //정답자 공지
         socket.on('userName', async (data) => {
             roomCode = data.roomCode;
