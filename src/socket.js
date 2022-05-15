@@ -5,10 +5,8 @@ const {getRepository} = require("typeorm");
 
 module.exports = (server, app) => {
 
-    const io = new SocketIO.Server(server,{
-        cors: {
-            origins: ["*"],
-        }
+    const io = SocketIO(server, {
+        cors: {origin: "*"},
     });
     app.set('io', io);
 
