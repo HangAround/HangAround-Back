@@ -5,12 +5,11 @@ const {getRepository} = require("typeorm");
 
 module.exports = (server, app) => {
 
-    const io = require("socket.io")(server, {
+    const io = new SocketIO.Server(server,{
         cors: {
-            origin: '*'
+            origins: ["*"],
         }
     });
-
     app.set('io', io);
 
     //네임스페이스 및 룸 세팅
