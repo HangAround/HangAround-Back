@@ -4,9 +4,11 @@ const {Room} = require("./entities/Room");
 const {getRepository} = require("typeorm");
 
 module.exports = (server, app) => {
-    const io = SocketIO(server);
+    const io = SocketIO(server, {
+        cors: {origin: "*"},
+        methods: ["GET", "POST"]
+    });
     app.set('io', io);
-
 
     //네임스페이스 및 룸 세팅
     const gameRoom = io.of('/gameRoom');
