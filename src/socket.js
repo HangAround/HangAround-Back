@@ -4,9 +4,16 @@ const {Room} = require("./entities/Room");
 const {getRepository} = require("typeorm");
 
 module.exports = (server, app) => {
-    const io = SocketIO(server);
-    app.set('io', io);
+    //const io = SocketIO(server);
+    //app.set('io', io);
 
+    const io = require("socket.io")(server, {
+        cors: {
+          origin: "*",
+          methods: ["GET", "POST"]
+        }
+      });
+      app.set('io', io);
 
     //네임스페이스 및 룸 세팅
     const gameRoom = io.of('/gameRoom');
@@ -17,7 +24,6 @@ module.exports = (server, app) => {
     //socket connection
     gameRoom.on('connection', (socket) => {
         console.log('gameRoom 네임스페이스에 접속');
-
         //room 입장
         socket.on('join', (data) => {
             roomCode = data.roomCode;
