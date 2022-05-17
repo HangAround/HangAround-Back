@@ -4,9 +4,9 @@ const {Room} = require("./entities/Room");
 const {getRepository} = require("typeorm");
 
 module.exports = (server, app) => {
+
     const io = SocketIO(server, {
         cors: {origin: "*"},
-        methods: ["GET", "POST"]
     });
     app.set('io', io);
 
