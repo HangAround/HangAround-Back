@@ -25,7 +25,7 @@ module.exports = (server, app) => {
             roomCode = data.roomCode;
             name = data.name;
             socket.join(roomCode);
-            socket.to(roomCode).emit('join', {
+            socket.in(roomCode).emit('join', {
                 msg: `${name}님이 입장했습니다.`
             });
             console.log(name + ' join a ' + roomCode);
@@ -35,7 +35,7 @@ module.exports = (server, app) => {
         socket.on('gameStart', (data) => {
             roomCode = data.roomCode;
             let consonant = randomConsonant.randomConsonant();
-            socket.to(roomCode).emit('consonant', {'consonant': consonant});
+            socket.in(roomCode).emit('consonant', {'consonant': consonant});
             console.log('consonant is ' + consonant);
         });
 
@@ -43,12 +43,12 @@ module.exports = (server, app) => {
         socket.on('response', () => {
             setTimeout(() => {
                 console.log('timeOver');
-                socket.to(roomCode).emit('timeOver', {
+                socket.in(roomCode).emit('timeOver', {
                     msg: `타이머가 종료되었습니다.`
                 });
             }, 180000);
             console.log("3분 타이머 세팅")
-            socket.to(roomCode).emit('timerStart', {
+            socket.in(roomCode).emit('timerStart', {
                 msg: `타이머가 세팅되었습니다.`
             });
         });
@@ -62,13 +62,13 @@ module.exports = (server, app) => {
                 players = room.playerCnt;
                 console.log(players);
                 if (count === players - 1) {
-                    app.get('io').of('/gameRoom').to(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
+                    app.get('io').of('/gameRoom').in(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
                 } else {
                     count++;
-                    app.get('io').of('/gameRoom').to(roomCode).emit('notice', `${data.userName}님 정답입니다!`);
+                    app.get('io').of('/gameRoom').in(roomCode).emit('notice', `${data.userName}님 정답입니다!`);
                     //게임 종료 공지
                     if (count === players - 1) {
-                        app.get('io').of('/gameRoom').to(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
+                        app.get('io').of('/gameRoom').in(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
                     }
                 }
             } else {
