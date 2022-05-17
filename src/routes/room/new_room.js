@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     res.send(response(baseResponse.SUCCESS, json_room_code));
 })
 
-router.post('/',  verifyToken, async (req, res) => {
+router.post('/', async (req, res) => {
     const {roomName, maxPlayer, userId} = req.body;
 
     if (!roomName)
