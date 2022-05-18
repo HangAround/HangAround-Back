@@ -6,15 +6,16 @@ const baseResponse = require("../../../config/baseResponseStatus");
 const {isLoggedIn, verifyToken} = require("../middleware");
 const {response, errResponse} = require("../../../config/response");
 
-let roomCode = Math.random().toString(36).slice(2);
+let roomCode = 0;
 
 
 router.get('/', (req, res) => {
+    roomCode = Math.random().toString(36).slice(2);
     let json_room_code = {'roomCode': roomCode};
     res.send(response(baseResponse.SUCCESS, json_room_code));
 })
 
-router.post('/',  verifyToken, async (req, res) => {
+router.post('/', async (req, res) => {
     const {roomName, maxPlayer, userId} = req.body;
 
     if (!roomName)

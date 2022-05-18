@@ -19,7 +19,6 @@ module.exports = (server, app) => {
     //socket connection
     gameRoom.on('connection', (socket) => {
         console.log('gameRoom 네임스페이스에 접속');
-
         //room 입장
         socket.on('join', (data) => {
             roomCode = data.roomCode;
