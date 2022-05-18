@@ -24,7 +24,7 @@ module.exports = (server, app) => {
             roomCode = data.roomCode;
             name = data.name;
             socket.join(roomCode);
-            socket.in(roomCode).emit('join', {
+            gameRoom.in(roomCode).emit('join', {
                 msg: `${name}님이 입장했습니다.`
             });
             console.log(name + ' join a ' + roomCode);
@@ -34,7 +34,7 @@ module.exports = (server, app) => {
         socket.on('gameStart', (data) => {
             roomCode = data.roomCode;
             let consonant = randomConsonant.randomConsonant();
-            socket.in(roomCode).emit('consonant', {'consonant': consonant});
+            gameRoom.in(roomCode).emit('consonant', {consonant: consonant});
             console.log('consonant is ' + consonant);
         });
 
@@ -42,12 +42,12 @@ module.exports = (server, app) => {
         socket.on('response', () => {
             setTimeout(() => {
                 console.log('timeOver');
-                socket.in(roomCode).emit('timeOver', {
+                gameRoom.in(roomCode).emit('timeOver', {
                     msg: `타이머가 종료되었습니다.`
                 });
             }, 180000);
             console.log("3분 타이머 세팅")
-            socket.in(roomCode).emit('timerStart', {
+            gameRoom.in(roomCode).emit('timerStart', {
                 msg: `타이머가 세팅되었습니다.`
             });
         });
