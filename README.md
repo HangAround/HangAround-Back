@@ -4,8 +4,7 @@ COVID 19 등장 이후의 '언택트'의 시대를 위한 🧊아이스 브레�
 💁‍♀️ 채팅방에서 자유로운 화상 회의가 가능합니다.  
 💁‍♂️ 아이스 브레이킹을 위해 초성 게임을 진행할 수 있습니다.  
 &nbsp;
-## 아이디어 기획
-HangAround의 와이어프레임<br>   
+## 와이어프레임  
 <kbd><img src="https://user-images.githubusercontent.com/54930365/169810776-050e2ed4-5040-428a-8b75-e5a25926ba8f.png" width="480" height="360"/></kdb>
 <img src="https://user-images.githubusercontent.com/54930365/169810806-f56860b4-4ea7-45b4-aed6-be663fd35c0e.png" width="480" height="360"/>
 <img src="https://user-images.githubusercontent.com/54930365/169810826-54f0b071-63e6-4359-b47a-fbb9975a0c63.png" width="480" height="360"/>
