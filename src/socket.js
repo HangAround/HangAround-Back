@@ -60,7 +60,8 @@ module.exports = (server, app) => {
             if (room !== undefined) {
                 players = room.playerCnt;
                 console.log(players);
-                console.log(data);
+                //console.log(data);
+                console.log("count, data: ", count, data)
                 if (count === players - 1) {
                     app.get('io').of('/gameRoom').to(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
                 } else {
