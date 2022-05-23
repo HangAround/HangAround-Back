@@ -60,11 +60,13 @@ module.exports = (server, app) => {
             if (room !== undefined) {
                 players = room.playerCnt;
                 console.log(players);
+                console.log(data);
                 if (count === players - 1) {
                     app.get('io').of('/gameRoom').to(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
                 } else {
                     count++;
                     app.get('io').of('/gameRoom').to(roomCode).emit('notice', `${data.userName}님 정답입니다!`);
+                    
                     //게임 종료 공지
                     if (count === players - 1) {
                         app.get('io').of('/gameRoom').to(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
