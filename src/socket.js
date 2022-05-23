@@ -32,6 +32,7 @@ module.exports = (server, app) => {
 
         //초성 알림
         socket.on('gameStart', (data) => {
+            count = 0;
             roomCode = data.roomCode;
             let consonant = randomConsonant.randomConsonant();
             gameRoom.in(roomCode).emit('consonant', {consonant: consonant});
@@ -78,6 +79,8 @@ module.exports = (server, app) => {
     });
 
     gameRoom.on('disconnect', () => {
-        console.log('room 네임스페이스 접속 해제');
+        gameRoom.leave(roomCode);
+        gameRoom.disconnect();
+        console.log('gameRoom 네임스페이스 접속 해제');
     });
 };
