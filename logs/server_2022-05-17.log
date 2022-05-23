@@ -1,0 +1,28 @@
+2022-05-17 13:36:48 info: [0mPOST /room/new-room [32m200[0m 54.121 ms - 68[0m
+
+2022-05-17 13:36:57 info: [0mGET /auth/11 [32m200[0m 575.763 ms - 250[0m
+
+2022-05-17 13:37:15 info: [0mPOST /room/new-room [32m200[0m 2697.246 ms - 49[0m
+
+2022-05-17 13:37:39 info: [0mGET /room/new-room [32m200[0m 482.917 ms - 85[0m
+
+2022-05-17 13:37:42 info: [0mGET /room/new-room [32m200[0m 531.180 ms - 85[0m
+
+2022-05-17 13:38:12 info: [0mPOST /room/new-room [32m200[0m 2542.121 ms - 49[0m
+
+2022-05-17 13:38:43 info: [0mGET /room/new-room [32m200[0m 692.840 ms - 85[0m
+
+2022-05-17 13:38:56 info: [0mGET /room/new-room [32m200[0m 771.075 ms - 85[0m
+
+2022-05-17 13:43:47 info: [0mGET /room/new-room [32m200[0m 588.232 ms - 85[0m
+
+2022-05-17 13:44:12 info: [0mGET /auth/11 [32m200[0m 1267.953 ms - 250[0m
+
+2022-05-17 13:44:27 info: [0mGET /room/new-room [32m200[0m 1124.497 ms - 85[0m
+
+2022-05-17 13:44:52 info: [0mPOST /room/new-room [32m200[0m 2113.553 ms - 49[0m
+
+2022-05-17 13:45:07 info: [0mGET /room/new-room [32m200[0m 1264.297 ms - 85[0m
+
+2022-05-17 13:50:28 info: [0mPOST /room/new-room [32m200[0m 1101.257 ms - 49[0m
+

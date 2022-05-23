@@ -1,0 +1,10 @@
+2022-05-18 22:46:22 info: [0mGET /room/new-room [32m200[0m 4.929 ms - 85[0m
+
+2022-05-18 22:46:34 info: [0mGET /auth/11 [32m200[0m 464.322 ms - 250[0m
+
+2022-05-18 22:46:49 info: [0mPOST /room/new-room [32m200[0m 1245.133 ms - 49[0m
+
+2022-05-18 22:47:08 info: [0mGET /room/new-room [32m200[0m 428.196 ms - 85[0m
+
+2022-05-18 22:47:13 info: [0mPOST /room/new-room [32m200[0m 1250.465 ms - 49[0m
+
