@@ -8,14 +8,14 @@ COVID 19 등장 이후의 '언택트'의 시대를 위한 🧊**아이스 브레
 ## <img src="https://user-images.githubusercontent.com/54930365/169820125-6d357736-4caa-4b7f-a7ed-3fff5a1c2fb5.png" width="40" height="25"/> 기획  
 ### - 와이어프레임
 <p align="center" style="border:gray"><kbd>
-<img src="https://user-images.githubusercontent.com/54930365/169810776-050e2ed4-5040-428a-8b75-e5a25926ba8f.png" width="420" height="280"/>
-<img src="https://user-images.githubusercontent.com/54930365/169810806-f56860b4-4ea7-45b4-aed6-be663fd35c0e.png" width="420" height="280"/></p><br>
+<img src="https://user-images.githubusercontent.com/54930365/169810776-050e2ed4-5040-428a-8b75-e5a25926ba8f.png" width="360" height="240"/>
+<img src="https://user-images.githubusercontent.com/54930365/169810806-f56860b4-4ea7-45b4-aed6-be663fd35c0e.png" width="360" height="240"/></p><br>
 <p align="center" style="border:gray"><kbd>
-<img src="https://user-images.githubusercontent.com/54930365/169810826-54f0b071-63e6-4359-b47a-fbb9975a0c63.png" width="420" height="280"/>
-<img src="https://user-images.githubusercontent.com/54930365/169810832-32bac7df-97be-46ab-9adc-b3243d096e47.png" width="420" height="280"/></p><br>
+<img src="https://user-images.githubusercontent.com/54930365/169810826-54f0b071-63e6-4359-b47a-fbb9975a0c63.png" width="360" height="240"/>
+<img src="https://user-images.githubusercontent.com/54930365/169810832-32bac7df-97be-46ab-9adc-b3243d096e47.png" width="360" height="240"/></p><br>
 <p align="center" style="border:gray"><kbd>
-<img src="https://user-images.githubusercontent.com/54930365/169812111-f58eca21-7c87-47cd-82cf-02a3b1e6c308.png" width="420" height="280"/>
-<img src="https://user-images.githubusercontent.com/54930365/169812140-c3b3bbbf-b2b8-452b-a82b-d5ce6d1fc0f1.png" width="420" height="280"/></p><br>
+<img src="https://user-images.githubusercontent.com/54930365/169812111-f58eca21-7c87-47cd-82cf-02a3b1e6c308.png" width="360" height="240"/>
+<img src="https://user-images.githubusercontent.com/54930365/169812140-c3b3bbbf-b2b8-452b-a82b-d5ce6d1fc0f1.png" width="360" height="240"/></p><br>
 &nbsp;  
 
 ### - 전체 모듈 설계도
