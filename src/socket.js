@@ -43,12 +43,13 @@ module.exports = (server, app) => {
         socket.on('response', () => {
             setTimeout(() => {
                 console.log('timeOver');
-                gameRoom.in(roomCode).emit('timeOver', {
+                gameRoom.to(socket.id).emit('timeOver', {
                     msg: `타이머가 종료되었습니다.`
                 });
             }, 180000);
-            console.log("3분 타이머 세팅")
-            gameRoom.in(roomCode).emit('timerStart', {
+            console.log("3분 타이머 세팅");
+            console.log(socket.id);
+            gameRoom.to(socket.id).emit('timerStart', {
                 msg: `타이머가 세팅되었습니다.`
             });
         });
