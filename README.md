@@ -29,7 +29,10 @@ COVID 19 등장 이후의 '언택트'의 시대를 위한 🧊**아이스 브레
 ## <img src="https://user-images.githubusercontent.com/54930365/169820125-6d357736-4caa-4b7f-a7ed-3fff5a1c2fb5.png" width="40" height="25"/> 주요 기술
 
 ### WebRTC
-> 설명
+> WebRTC(Web Real-Time Communications)란, 웹 애플리케이션 및 사이트들이 별도의 소프트웨어 없이 음성, 영상 미디어 혹은 텍스트, 파일 같은 데이터를 P2P 방식으로 브라우져끼리 주고 받을 수 있게 만든 JavaScript 기반 오픈소스입니다.
+WebRTC는 Latency가 짧다는 장점이 있습니다. 때문에 지연시간이 거의 없는 REAL-TIME 방송이 가능해집니다. 별다른 미디어 송출 관련 소프트웨어의 설치 없이 실시간 커뮤니티가 가능하다는 것도 장점입니다. 
+하지만 사람들이 잘 사용하지 않는 브라우저나 최신버전을 사용하지 않는 사용자는 사용이 불가능하다는 단점이 있습니다. 또한 P2P 통신을 하기 위해서는 사용자의 IP주소를 알아야 하는데, 이를 위해 STUN/TURN 서버가 필요하다는 것 역시 단점이 될 수 있습니다. 
+
 ### Web Socket
 > 설명
 ### STT
