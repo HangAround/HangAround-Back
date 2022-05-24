@@ -2,6 +2,7 @@ const SocketIO = require('socket.io');
 const randomConsonant = require('./routes/game/consonantGame');
 const {Room} = require("./entities/Room");
 const {getRepository} = require("typeorm");
+const {clearTimeout} = require("timers");
 
 module.exports = (server, app) => {
 
@@ -15,6 +16,7 @@ module.exports = (server, app) => {
     let roomCode, name;
     let count = 0;
     let players = 0;
+    let timers = [];
 
     //socket connection
     gameRoom.on('connection', (socket) => {
@@ -33,6 +35,7 @@ module.exports = (server, app) => {
         //초성 알림
         socket.on('gameStart', (data) => {
             count = 0;
+            timers = [];
             roomCode = data.roomCode;
             let consonant = randomConsonant.randomConsonant();
             gameRoom.in(roomCode).emit('consonant', {consonant: consonant});
@@ -41,17 +44,17 @@ module.exports = (server, app) => {
 
         //타이머 셋팅
         socket.on('response', () => {
-            setTimeout(() => {
+            let timerId = setTimeout(() => {
                 console.log('timeOver');
                 gameRoom.to(socket.id).emit('timeOver', {
                     msg: `타이머가 종료되었습니다.`
                 });
-            }, 180000);
+            }, 60000);
             console.log("3분 타이머 세팅");
-            console.log(socket.id);
             gameRoom.to(socket.id).emit('timerStart', {
                 msg: `타이머가 세팅되었습니다.`
             });
+            timers.push(timerId);
         });
 
         //정답자 공지
@@ -64,12 +67,17 @@ module.exports = (server, app) => {
                 console.log(players);
                 if (count === players - 1) {
                     app.get('io').of('/gameRoom').in(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
+                    console.log("게임이 종료, 타이머를 중지합니다.");
+                    timers.forEach((timer) => clearTimeout(timer));
+
                 } else {
                     count++;
                     app.get('io').of('/gameRoom').in(roomCode).emit('notice', `${data.userName}님 정답입니다!`);
                     //게임 종료 공지
                     if (count === players - 1) {
                         app.get('io').of('/gameRoom').in(roomCode).emit('gameOver', `게임이 종료되었습니다.`);
+                        console.log("게임 종료, 타이머를 중지합니다.");
+                        timers.forEach((timer) => clearTimeout(timer));
                     }
                 }
             } else {
