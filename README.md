@@ -43,7 +43,7 @@ COVID 19 등장 이후의 '언택트'의 시대를 위한 🧊**아이스 브레
 > 실시간 통신이 가능하다는 장점 외에도 클라이언트와 한 번 연결이 되면 계속 같은 라인을 사용해서 통신하므로 HTTP와 TCP연결 트래픽을 피할 수 있다는 장점이 있습니다. 🔥 
 
 ### 3. STT
-![img](https://user-images.githubusercontent.com/54930365/169820125-6d357736-4caa-4b7f-a7ed-3fff5a1c2fb5.png](https://www.w3.org/2005/Incubator/htmlspeech/XGR-htmlspeech-20111206/HighLevelSolutionDiagram_V2.jpg)
+<img src = "https://www.w3.org/2005/Incubator/htmlspeech/XGR-htmlspeech-20111206/HighLevelSolutionDiagram_V2.jpg" width="70%" height="70%">
 > STT(Speech-to-Text)란 사람이 말하는 음성 언어를 컴퓨터가 해석하여 그 내용을 문자 데이터로 전환하는 처리를 말합니다. 입력 음성을 전처리한 후, 많은 음성 데이터에 의해 트레이닝된 모델과 비교하여 텍스트 결과를 출력하게 됩니다. 따라서, 얼마나 다양한 음성 데이터로 트레이닝을 했는지, 얼마나 특화된 알고리즘을 통하여 모델을 생성했는지 등 다양한 기술에 따라 결과물이 다르게 출력됩니다.🎙️
 > 
 > 대표적인 STT API 서비스로는 Google Cloud Speech API, Kakao Speech API, Naver CSR, Microsoft Azure STT 등이 있습니다. 본 프로젝트에서는 Web Speech API를 활용하였습니다. 브라우저에서 사용 가능한 STT API로 오픈소스이고, MDN 문서가 작성되어 있어 사용에 용이하다는 장점이 있습니다. 😍
