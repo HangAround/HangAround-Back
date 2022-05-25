@@ -28,19 +28,21 @@ COVID 19 등장 이후의 '언택트'의 시대를 위한 🧊**아이스 브레
 
 ## <img src="https://user-images.githubusercontent.com/54930365/169820125-6d357736-4caa-4b7f-a7ed-3fff5a1c2fb5.png" width="40" height="25"/> 주요 기술
 
-### WebRTC
+### 1. WebRTC [🔗](https://webrtc.org/)
+![2](https://user-images.githubusercontent.com/100418646/170182103-f7f62f22-e035-43af-b8e5-5a0add9b6668.png)
 > WebRTC(Web Real-Time Communications)란, 웹 애플리케이션 및 사이트들이 별도의 소프트웨어 없이 음성, 영상 미디어 혹은 텍스트, 파일 같은 데이터를 P2P 방식으로 브라우져끼리 주고 받을 수 있게 만든 JavaScript 기반 오픈소스입니다. 💻
 > 
 > WebRTC는 Latency가 짧다는 장점이 있습니다. 때문에 지연시간이 거의 없는 REAL-TIME 방송이 가능해집니다. 별다른 미디어 송출 관련 소프트웨어의 설치 없이 실시간 커뮤니티가 가능하다는 것도 장점입니다. 😄
 > 
 > 하지만 사람들이 잘 사용하지 않는 브라우저나 최신버전을 사용하지 않는 사용자는 사용이 불가능하다는 단점이 있습니다. 또한 P2P 통신을 하기 위해서는 사용자의 IP주소를 알아야 하는데, 이를 위해 STUN/TURN 서버가 필요하다는 것 역시 단점이 될 수 있습니다. 🤔
 
-### Web Socket
+### 2. Web Socket
+![img](https://user-images.githubusercontent.com/100418646/170182305-4f0df2c5-151a-480d-bed5-e2f7ee4d0469.jpg)
 > WebSocket은 하나의 TCP 접속에 전이중 통신 채널을 제공하는 컴퓨터 통신 프로토콜입니다. 쉽게 이야기하면 웹 버전의 TCP또는 Socket이라고 이해할 수 있습니다. 이를 통해 서버와 클라이언트 간에 Socket Connection을 유지해서 언제든 양방향 통신 또는 데이터 전송이 가능해지도록 하는 기술로, 본 프로젝트에서는 화상채팅 구현을 위하여 사용되었습니다. 📹
 > 
 > 실시간 통신이 가능하다는 장점 외에도 클라이언트와 한 번 연결이 되면 계속 같은 라인을 사용해서 통신하므로 HTTP와 TCP연결 트래픽을 피할 수 있다는 장점이 있습니다. 🔥 
 
-### STT
+### 3. STT
 > 설명
 &nbsp;
 
@@ -77,5 +79,6 @@ $ yarn build
 |:--------:|:--------:|:--------:|:------:|
 | 김승지  |🔗[링크](https://github.com/seungjikim)|프론트엔드   |테스트3|
 | 김예지 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  |🔗[링크](https://github.com/2214yj) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|팀장</br>백엔드</br>디자인 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   | Node.js를 활용한 백엔드 개발과 실시간 웹소켓 통신 다루기, STT API 사용하기, 서버 배포, 웹 디자인 등 새롭고 다양한 경험을 할 수 있었던 프로젝트입니다. 어렵게 느껴지는 부분도 있었지만 그만큼 더 성장할 수 있었습니다. 팀원들과 함께 수많은 에러와 역경을 이겨내고 호흡을 맞추면서 팀워크가 어떤 건지 느꼈습니다. :seedling: |
+| 노진주 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  |🔗[링크](https://github.com/Rhojinjoo) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|백엔드 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   | 이번 프로젝트로 Postman, DataGrip, Figma 등 새로 접하는 툴들의 사용에 익숙해질 수 있었습니다. 팀원들과 코드를 리뷰하며 Node.js의 라우팅 구조와 데이터베이스 관리에 관해 공부할 수 있었고, 프로젝트를 자세히 기획하고 역할을 분담하는 과정을 통해 협업하는 방법을 배울 수 있었습니다. 좋은 팀원들과 함께해 더욱 많이 배울 수 있었던 뜻깊은 시간이었습니다. 🌟 |
 | 노진주  |🔗[링크](https://github.com/Rhojinjoo)|백엔드      |테스트3|
 | 이수민  |🔗[링크](https://github.com/leesyum)|백엔드      |테스트3|
