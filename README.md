@@ -43,7 +43,9 @@ COVID 19 등장 이후의 '언택트'의 시대를 위한 🧊**아이스 브레
 > 실시간 통신이 가능하다는 장점 외에도 클라이언트와 한 번 연결이 되면 계속 같은 라인을 사용해서 통신하므로 HTTP와 TCP연결 트래픽을 피할 수 있다는 장점이 있습니다. 🔥 
 
 ### 3. STT
-> 설명
+![img](https://www.w3.org/2005/Incubator/htmlspeech/XGR-htmlspeech-20111206/HighLevelSolutionDiagram_V2.jpg)
+> STT(Speech-to-Text)란 사람이 말하는 음성 언어를 컴퓨터가 해석하여 그 내용을 문자 데이터로 전환하는 처리를 말합니다. STT에서는 입력 음성을 전처리한 후, 많은 음성 데이터에 의해 트레이닝된 모델과 비교하여 텍스트 결과를 출력하게 됩니다. 따라서, 얼마나 다양한 음성 데이터로 트레이닝을 했는지, 얼마나 특화된 알고리즘을 통하여 모델을 생성했는지 등 다양한 기술에 따라 결과물이 다르게 출력됩니다.
+> 대표적인 STT API 서비스로는 Google Cloud Speech API, Kakao Speech API, Naver CSR, Microsoft Azure STT 등이 있습니다. 본 프로젝트에서는 Web Speech API를 활용하였습니다. 브라우저에서 사용 가능한 STT API로 오픈소스이고, MDN 문서가 작성되어 있어 사용에 용이하다는 장점이 있습니다. 😍
 &nbsp;
 
 ## <img src="https://user-images.githubusercontent.com/54930365/169820125-6d357736-4caa-4b7f-a7ed-3fff5a1c2fb5.png" width="40" height="25"/> 기술 스택
@@ -81,4 +83,4 @@ $ yarn build
 | 김예지 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  |🔗[링크](https://github.com/2214yj) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|팀장</br>백엔드</br>디자인 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   | Node.js를 활용한 백엔드 개발과 실시간 웹소켓 통신 다루기, STT API 사용하기, 서버 배포, 웹 디자인 등 새롭고 다양한 경험을 할 수 있었던 프로젝트입니다. 어렵게 느껴지는 부분도 있었지만 그만큼 더 성장할 수 있었습니다. 팀원들과 함께 수많은 에러와 역경을 이겨내고 호흡을 맞추면서 팀워크가 어떤 건지 느꼈습니다. :seedling: |
 | 노진주 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  |🔗[링크](https://github.com/Rhojinjoo) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|백엔드 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   | 이번 프로젝트로 Postman, DataGrip, Figma 등 새로 접하는 툴들의 사용에 익숙해질 수 있었습니다. 팀원들과 코드를 리뷰하며 Node.js의 라우팅 구조와 데이터베이스 관리에 관해 공부할 수 있었고, 프로젝트를 자세히 기획하고 역할을 분담하는 과정을 통해 협업하는 방법을 배울 수 있었습니다. 좋은 팀원들과 함께해 더욱 많이 배울 수 있었던 뜻깊은 시간이었습니다. 🌟 |
 | 노진주  |🔗[링크](https://github.com/Rhojinjoo)|백엔드      |테스트3|
-| 이수민  |🔗[링크](https://github.com/leesyum)|백엔드      |테스트3|
+| 이수민  |🔗[링크](https://github.com/leesyum)|백엔드      |이번 프로젝트를 통하여|
