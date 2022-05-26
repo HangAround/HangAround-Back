@@ -26,6 +26,11 @@ COVID 19 등장 이후의 '언택트'의 시대를 위한 🧊**아이스 브레
 ## <img src="https://user-images.githubusercontent.com/54930365/169820125-6d357736-4caa-4b7f-a7ed-3fff5a1c2fb5.png" width="40" height="25"/> 시연 영상
 &nbsp;
 
+
+https://user-images.githubusercontent.com/43927910/170471703-f8479d6f-07e7-48e3-8cf1-aed5363b3230.mp4
+
+
+
 ## <img src="https://user-images.githubusercontent.com/54930365/169820125-6d357736-4caa-4b7f-a7ed-3fff5a1c2fb5.png" width="40" height="25"/> 주요 기술
 
 ### 1. WebRTC [🔗](https://webrtc.org/)
