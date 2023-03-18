@@ -26,10 +26,9 @@ COVID 19 등장 이후의 '언택트'의 시대를 위한 🧊**아이스 브레
 ## <img src="https://user-images.githubusercontent.com/54930365/169820125-6d357736-4caa-4b7f-a7ed-3fff5a1c2fb5.png" width="40" height="25"/> 시연 영상
 &nbsp;
 
-
-
-
-Uploading 시연영상 행어라운드.mp4…
+<p align="center">
+<img src="https://user-images.githubusercontent.com/54930365/226083453-0cfbb7de-ffd4-45df-9f61-c09ae0040ee5.gif">
+</p>
 
 
 
